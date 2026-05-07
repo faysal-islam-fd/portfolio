@@ -1,0 +1,291 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================================================
+   Cinematic AI lab theme
+   --------------------------------------------------------------------
+   The site is dark-only by design. Light theme tokens still exist for
+   the admin "preview" toggle but the public site forces dark.
+   ===================================================================== */
+
+@layer base {
+  :root {
+    --font-inter: "Inter";
+    --font-jetbrains: "JetBrains Mono";
+
+    --background: 0 0% 2%;
+    --foreground: 0 0% 96%;
+
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 96%;
+
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 96%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 0 0% 96%;
+
+    --muted: 0 0% 10%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 10%;
+    --input: 0 0% 8%;
+    --ring: 217 91% 60%;
+
+    --radius: 0.75rem;
+  }
+
+  /* Force dark globally; both .dark and .light resolve to the same vars */
+  .light, .dark {
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-ink-950 text-foreground;
+    background-image:
+      radial-gradient(ellipse 1200px 600px at 50% -10%, rgba(59,130,246,0.10), transparent 60%),
+      radial-gradient(ellipse 800px 500px at 100% 100%, rgba(99,102,241,0.08), transparent 60%);
+    background-attachment: fixed;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+
+  ::selection {
+    background-color: rgba(59,130,246,0.35);
+    color: #fff;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.12);
+    background-clip: padding-box;
+  }
+}
+
+@layer components {
+  /* Premium frosted glass surface */
+  .glass {
+    @apply bg-ink-900/60 backdrop-blur-xl border border-white/[0.06];
+    box-shadow:
+      0 1px 0 0 rgba(255,255,255,0.04) inset,
+      0 0 0 1px rgba(255,255,255,0.02),
+      0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+
+  .glass-subtle {
+    @apply bg-white/[0.02] backdrop-blur-md border border-white/[0.05];
+  }
+
+  /* Glowing accent border */
+  .glow-border {
+    position: relative;
+    isolation: isolate;
+  }
+  .glow-border::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      130deg,
+      rgba(59,130,246,0.35) 0%,
+      rgba(99,102,241,0.15) 30%,
+      rgba(255,255,255,0.04) 60%,
+      rgba(6,182,212,0.25) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Editorial gradient text */
+  .text-gradient {
+    background: linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #d4d4d8 40%,
+      #818cf8 70%,
+      #38bdf8 100%
+    );
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+            color: transparent;
+  }
+
+  .text-gradient-accent {
+    background: linear-gradient(135deg, #60a5fa 0%, #818cf8 50%, #22d3ee 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+            color: transparent;
+  }
+
+  /* Section heading eyebrow */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-mono text-xs tracking-[0.18em] uppercase text-accent-blue/90;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: linear-gradient(to right, rgba(59,130,246,0.8), transparent);
+  }
+
+  /* Subtle grain overlay */
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  /* Magnetic button shimmer */
+  .shimmer {
+    background-image: linear-gradient(
+      110deg,
+      rgba(255,255,255,0) 30%,
+      rgba(255,255,255,0.18) 50%,
+      rgba(255,255,255,0) 70%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2.4s infinite;
+  }
+
+  /* Section container */
+  .section {
+    @apply relative w-full py-24 sm:py-32 lg:py-40;
+  }
+
+  .container-prose {
+    @apply mx-auto w-full max-w-[1280px] px-6 sm:px-8 lg:px-10;
+  }
+
+  /* Neural grid backdrop */
+  .neural-grid {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, #000 30%, transparent 80%);
+  }
+
+  /* Chip / badge */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03]
+           px-3 py-1 font-mono text-[11px] tracking-wider uppercase text-zinc-300;
+  }
+  .chip-accent {
+    @apply border-accent-blue/30 bg-accent-blue/10 text-accent-blue/90;
+  }
+
+  /* Subtle hover lift */
+  .lift {
+    @apply transition-all duration-300 ease-out;
+  }
+  .lift:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@layer utilities {
+  .mask-fade-y {
+    mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+  }
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .scroll-mt-nav {
+    scroll-margin-top: 6rem;
+  }
+}
+
+/* MDX prose tuning for technical content */
+.prose-research {
+  @apply text-zinc-300;
+}
+.prose-research h1, .prose-research h2, .prose-research h3 {
+  @apply text-white tracking-tight;
+}
+.prose-research h2 {
+  @apply mt-12 mb-4 text-2xl font-semibold;
+}
+.prose-research h3 {
+  @apply mt-8 mb-3 text-xl font-semibold;
+}
+.prose-research p {
+  @apply leading-relaxed my-4;
+}
+.prose-research a {
+  @apply text-accent-blue underline underline-offset-4 decoration-accent-blue/40 hover:decoration-accent-blue;
+}
+.prose-research code {
+  @apply font-mono text-[0.9em] px-1.5 py-0.5 rounded bg-white/[0.06] text-zinc-100;
+}
+.prose-research pre {
+  @apply font-mono text-sm rounded-xl border border-white/10 bg-ink-900 p-4 overflow-x-auto my-6;
+}
+.prose-research pre code {
+  @apply bg-transparent p-0;
+}
+.prose-research ul {
+  @apply list-disc pl-6 my-4 space-y-2;
+}
+.prose-research ol {
+  @apply list-decimal pl-6 my-4 space-y-2;
+}
+.prose-research blockquote {
+  @apply border-l-2 border-accent-blue/60 pl-4 italic text-zinc-400 my-6;
+}
+.prose-research img {
+  @apply rounded-xl border border-white/10 my-8;
+}
+.prose-research hr {
+  @apply border-white/10 my-12;
+}
