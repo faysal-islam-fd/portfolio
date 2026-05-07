@@ -30,7 +30,7 @@ export default async function AdminExperiencePage() {
         rows={rows}
         editHref={(r) => `/admin/experience/${r.id}`}
         rowAction={(r) => (
-          <DeleteButton id={r.id} action={async (id) => deleteExperience(id)} />
+          <DeleteButton id={r.id} action={deleteExperience} />
         )}
         columns={[
           {

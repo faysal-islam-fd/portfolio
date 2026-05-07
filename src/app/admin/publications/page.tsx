@@ -31,7 +31,7 @@ export default async function AdminPublicationsPage() {
         rows={rows}
         editHref={(r) => `/admin/publications/${r.id}`}
         rowAction={(r) => (
-          <DeleteButton id={r.id} action={async (id) => deletePublication(id)} />
+          <DeleteButton id={r.id} action={deletePublication} />
         )}
         columns={[
           {

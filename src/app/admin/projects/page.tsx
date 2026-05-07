@@ -32,7 +32,7 @@ export default async function AdminProjectsPage() {
         rows={rows}
         editHref={(r) => `/admin/projects/${r.id}`}
         rowAction={(r) => (
-          <DeleteButton id={r.id} action={async (id) => deleteProject(id)} />
+          <DeleteButton id={r.id} action={deleteProject} />
         )}
         columns={[
           {

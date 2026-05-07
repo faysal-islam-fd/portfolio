@@ -30,7 +30,7 @@ export default async function AdminSkillsPage() {
         rows={rows}
         editHref={(r) => `/admin/skills/${r.id}`}
         rowAction={(r) => (
-          <DeleteButton id={r.id} action={async (id) => deleteSkill(id)} />
+          <DeleteButton id={r.id} action={deleteSkill} />
         )}
         columns={[
           {

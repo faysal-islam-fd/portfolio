@@ -46,6 +46,7 @@ export function NeuralNetwork({
     let width = 0;
     let height = 0;
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let bgGrad: CanvasGradient | null = null;
 
     type Node = {
       x: number;
@@ -59,6 +60,22 @@ export function NeuralNetwork({
     };
 
     const HUES = [212, 230, 192, 250]; // blue, indigo, cyan, violet
+
+    const glowCanvases = HUES.map((hue) => {
+      const c = document.createElement("canvas");
+      const size = 64;
+      c.width = size;
+      c.height = size;
+      const cctx = c.getContext("2d");
+      if (cctx) {
+        const grad = cctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+        grad.addColorStop(0, `hsla(${hue}, 95%, 70%, 1)`);
+        grad.addColorStop(1, "hsla(0,0%,0%,0)");
+        cctx.fillStyle = grad;
+        cctx.fillRect(0, 0, size, size);
+      }
+      return c;
+    });
 
     const init = () => {
       const rect = canvas.getBoundingClientRect();
@@ -79,6 +96,17 @@ export function NeuralNetwork({
         pulse: Math.random() * Math.PI * 2,
         pulseSpeed: 0.005 + Math.random() * 0.015,
       }));
+
+      bgGrad = ctx.createRadialGradient(
+        width * 0.5,
+        height * 0.35,
+        0,
+        width * 0.5,
+        height * 0.35,
+        Math.max(width, height) * 0.7
+      );
+      bgGrad.addColorStop(0, "rgba(59,130,246,0.05)");
+      bgGrad.addColorStop(1, "rgba(0,0,0,0)");
     };
 
     const onResize = () => {
@@ -99,19 +127,10 @@ export function NeuralNetwork({
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Soft global radial vignette glow
-      const grad = ctx.createRadialGradient(
-        width * 0.5,
-        height * 0.35,
-        0,
-        width * 0.5,
-        height * 0.35,
-        Math.max(width, height) * 0.7
-      );
-      grad.addColorStop(0, "rgba(59,130,246,0.05)");
-      grad.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, width, height);
+      if (bgGrad) {
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, width, height);
+      }
 
       const m = mouseRef.current;
 
@@ -154,8 +173,9 @@ export function NeuralNetwork({
           const b = nodes[j]!;
           const dx = a.x - b.x;
           const dy = a.y - b.y;
-          const d = Math.hypot(dx, dy);
-          if (d < linkDistance) {
+          const d2 = dx * dx + dy * dy;
+          if (d2 < linkDistance * linkDistance) {
+            const d = Math.sqrt(d2);
             const t = 1 - d / linkDistance;
             ctx.strokeStyle = `hsla(${a.hue}, 90%, 70%, ${0.07 * t})`;
             ctx.lineWidth = 0.7;
@@ -172,13 +192,13 @@ export function NeuralNetwork({
         const pulse = (Math.sin(n.pulse) + 1) * 0.5; // 0..1
         const r = n.r + pulse * 0.6;
 
-        const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 8);
-        glow.addColorStop(0, `hsla(${n.hue}, 95%, 70%, ${0.35 + pulse * 0.25})`);
-        glow.addColorStop(1, "hsla(0,0%,0%,0)");
-        ctx.fillStyle = glow;
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, r * 8, 0, Math.PI * 2);
-        ctx.fill();
+        const glowRadius = r * 8;
+        ctx.globalAlpha = 0.35 + pulse * 0.25;
+        const img = glowCanvases[HUES.indexOf(n.hue)];
+        if (img) {
+          ctx.drawImage(img, n.x - glowRadius, n.y - glowRadius, glowRadius * 2, glowRadius * 2);
+        }
+        ctx.globalAlpha = 1;
 
         ctx.fillStyle = `hsla(${n.hue}, 100%, 88%, 0.95)`;
         ctx.beginPath();

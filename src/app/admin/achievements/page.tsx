@@ -30,7 +30,7 @@ export default async function AdminAchievementsPage() {
         rows={rows}
         editHref={(r) => `/admin/achievements/${r.id}`}
         rowAction={(r) => (
-          <DeleteButton id={r.id} action={async (id) => deleteAchievement(id)} />
+          <DeleteButton id={r.id} action={deleteAchievement} />
         )}
         columns={[
           {

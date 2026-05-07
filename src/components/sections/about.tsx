@@ -49,7 +49,7 @@ export function AboutSection({ about }: { about: About | null }) {
                     {about.research_focus ?? "AI Research"}
                   </div>
                   <div className="mt-1 text-xl font-semibold text-white">
-                    {about.full_name}
+                    {about.full_name === "Your Name" ? "MD. Faysal Islam Fahad" : about.full_name}
                   </div>
                 </div>
               </div>

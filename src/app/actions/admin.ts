@@ -4,7 +4,7 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 
 import { requireAdmin } from "@/lib/auth";
-import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/server";
 import {
   aboutSchema,
   achievementSchema,
@@ -43,7 +43,7 @@ async function upsertRow<T extends z.ZodTypeAny>(
       return { ok: false, error: first?.message ?? "Validation failed" };
     }
 
-    const supabase = await createClient();
+    const supabase = createServiceClient();
     const payload: any = parsed.data;
     for (const k of Object.keys(payload)) {
       if (payload[k] === "") payload[k] = null;
@@ -80,7 +80,7 @@ async function deleteRow(
 ): Promise<ActionResult> {
   try {
     await requireAdmin();
-    const supabase = await createClient();
+    const supabase = createServiceClient();
     const { error } = await supabase.from(table).delete().eq("id", id);
     if (error) throw error;
     revalidateTag(tag);
@@ -100,7 +100,7 @@ async function reorderRows(
 ): Promise<ActionResult> {
   try {
     await requireAdmin();
-    const supabase = await createClient();
+    const supabase = createServiceClient();
     await Promise.all(
       orderedIds.map((id, idx) =>
         supabase.from(table).update({ display_order: idx }).eq("id", id)
@@ -311,7 +311,7 @@ export async function saveHero(
     if (!parsed.success) {
       return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid" };
     }
-    const supabase = await createClient();
+    const supabase = createServiceClient();
     const payload: any = parsed.data;
     for (const k of Object.keys(payload)) {
       if (payload[k] === "") payload[k] = null;
@@ -347,7 +347,7 @@ export async function saveAbout(
     if (!parsed.success) {
       return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid" };
     }
-    const supabase = await createClient();
+    const supabase = createServiceClient();
     const payload: any = parsed.data;
     for (const k of Object.keys(payload)) {
       if (payload[k] === "") payload[k] = null;
@@ -378,7 +378,7 @@ export async function saveAbout(
 export async function markMessageRead(id: string, isRead = true) {
   try {
     await requireAdmin();
-    const supabase = await createClient();
+    const supabase = createServiceClient();
     const { error } = await supabase
       .from("contact_messages")
       .update({ is_read: isRead })
@@ -394,7 +394,7 @@ export async function markMessageRead(id: string, isRead = true) {
 export async function deleteMessage(id: string) {
   try {
     await requireAdmin();
-    const supabase = await createClient();
+    const supabase = createServiceClient();
     const { error } = await supabase
       .from("contact_messages")
       .delete()

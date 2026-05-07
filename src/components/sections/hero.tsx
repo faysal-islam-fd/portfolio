@@ -38,7 +38,7 @@ export function HeroSection({ hero }: { hero: HeroType | null }) {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-blue" />
             </span>
             <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-300">
-              {hero?.eyebrow ?? "Open for collaborations · 2026"}
+              {hero?.eyebrow ?? "MD. Faysal Islam Fahad · Deep Learning Engineer"}
             </span>
           </div>
         </Reveal>

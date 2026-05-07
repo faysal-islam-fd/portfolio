@@ -5,7 +5,7 @@ import "./globals.css";
 import { absoluteUrl } from "@/lib/utils";
 
 const SITE_NAME =
-  process.env.NEXT_PUBLIC_SITE_NAME ?? "AI Researcher Portfolio";
+  process.env.NEXT_PUBLIC_SITE_NAME ?? "MD. Faysal Islam Fahad Portfolio";
 const SITE_DESC =
   "Deep Learning Engineer & AI Researcher specializing in Vision Transformers, multimodal learning, and edge AI.";
 

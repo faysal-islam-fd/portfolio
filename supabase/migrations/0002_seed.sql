@@ -36,10 +36,10 @@ on conflict do nothing;
 
 -- ---------- about ----------
 insert into public.about (
-  full_name, short_bio, long_bio, research_focus, current_role,
+  full_name, short_bio, long_bio, research_focus, "current_role",
   location, highlights
 ) values (
-  'Your Name',
+  'MD. Faysal Islam Fahad',
   'Deep Learning Engineer & AI researcher focused on vision transformers and multimodal learning.',
   'I am a Deep Learning Engineer and AI researcher working at the intersection of computer vision, multimodal learning, and large-scale model training. My work focuses on pushing transformer architectures into resource-constrained, real-world settings — from medical imaging to autonomous perception. I enjoy turning recent papers into production systems, and shipping models that survive contact with real data.',
   'Vision Transformers · Self-Supervised Learning · Multimodal Reasoning',
@@ -101,7 +101,7 @@ insert into public.projects (
     {"label":"GPU hours","value":"1,200"}
   ]'::jsonb,
   'computer_vision', 'published', true, 1, now(),
-  'https://github.com/yourname/vit-medical'
+  'https://github.com/faysal-islam-fd/vit-medical'
 ),
 (
   'multimodal-retrieval',
@@ -139,7 +139,7 @@ insert into public.projects (
     {"label":"Model size","value":"6MB"}
   ]'::jsonb,
   'computer_vision', 'published', true, 3, now(),
-  'https://github.com/yourname/edge-detection'
+  'https://github.com/faysal-islam-fd/edge-detection'
 )
 on conflict (slug) do nothing;
 
@@ -179,7 +179,7 @@ insert into public.publications (
 ) values
 (
   'Token-Aware Vision Transformers for Efficient Inference',
-  'Your Name, A. Chen, J. Smith',
+  'MD. Faysal Islam Fahad, A. Chen, J. Smith',
   'CVPR Workshop on Efficient Deep Learning',
   'workshop', 2025,
   'We present a learnable token-pruning module that adapts the computation graph of a Vision Transformer at inference.',
@@ -187,7 +187,7 @@ insert into public.publications (
 ),
 (
   'MAE Pretraining Across Medical Modalities',
-  'Your Name, R. Patel',
+  'MD. Faysal Islam Fahad, R. Patel',
   'MICCAI Workshop',
   'workshop', 2024,
   'Cross-modality masked autoencoder pretraining for medical image classification.',
@@ -195,7 +195,7 @@ insert into public.publications (
 ),
 (
   'Distilling YOLO for Edge Robotics',
-  'Your Name',
+  'MD. Faysal Islam Fahad',
   'arXiv preprint', 'preprint', 2024,
   'A study of distillation strategies for compact object detectors targeting embedded hardware.',
   'https://arxiv.org/abs/0000.00002', null, false, 3
@@ -257,11 +257,11 @@ on conflict (slug) do nothing;
 -- ---------- contact links ----------
 insert into public.contact_links (label, href, icon, display_order) values
   ('Email',           'mailto:hello@yourdomain.com', 'mail',     1),
-  ('GitHub',          'https://github.com/yourname', 'github',   2),
+  ('GitHub',          'https://github.com/faysal-islam-fd', 'github',   2),
   ('Google Scholar',  'https://scholar.google.com',  'scholar',  3),
-  ('LinkedIn',        'https://linkedin.com/in/yourname', 'linkedin', 4),
-  ('Twitter / X',     'https://x.com/yourname',      'twitter',  5),
-  ('Hugging Face',    'https://huggingface.co/yourname', 'hf',   6)
+  ('LinkedIn',        'https://linkedin.com/in/faysal-islam-fd', 'linkedin', 4),
+  ('Twitter / X',     'https://x.com/faysal-islam-fd',      'twitter',  5),
+  ('Hugging Face',    'https://huggingface.co/faysal-islam-fd', 'hf',   6)
 on conflict do nothing;
 
 -- ---------- site config ----------

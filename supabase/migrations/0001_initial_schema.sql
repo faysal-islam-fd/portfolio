@@ -76,7 +76,7 @@ create table if not exists public.about (
   short_bio text,
   long_bio text,
   research_focus text,
-  current_role text,
+  "current_role" text,
   location text,
   profile_image_url text,
   resume_url text,

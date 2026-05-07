@@ -32,7 +32,7 @@ export default async function AdminResearchPage() {
         rows={rows}
         editHref={(r) => `/admin/research/${r.id}`}
         rowAction={(r) => (
-          <DeleteButton id={r.id} action={async (id) => deleteResearch(id)} />
+          <DeleteButton id={r.id} action={deleteResearch} />
         )}
         columns={[
           {

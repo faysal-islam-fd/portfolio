@@ -31,7 +31,7 @@ export default async function AdminPostsPage() {
         rows={rows}
         editHref={(r) => `/admin/posts/${r.id}`}
         rowAction={(r) => (
-          <DeleteButton id={r.id} action={async (id) => deletePost(id)} />
+          <DeleteButton id={r.id} action={deletePost} />
         )}
         columns={[
           {
