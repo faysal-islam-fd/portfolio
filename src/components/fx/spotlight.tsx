@@ -42,7 +42,7 @@ export function Spotlight({
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover/spot:opacity-100"
-        style={{ background }}
+        style={{ background, willChange: "background, opacity" }}
       />
       {children}
     </div>
