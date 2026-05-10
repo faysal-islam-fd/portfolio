@@ -1,6 +1,7 @@
 import {
   getAbout,
   getAchievements,
+  getCertifications,
   getContactLinks,
   getExperience,
   getHero,
@@ -19,6 +20,7 @@ import { SkillsSection } from "@/components/sections/skills";
 import { PublicationsSection } from "@/components/sections/publications";
 import { ExperienceSection } from "@/components/sections/experience";
 import { AchievementsSection } from "@/components/sections/achievements";
+import { CertificationsSection } from "@/components/sections/certifications";
 import { BlogPreviewSection } from "@/components/sections/blog-preview";
 import { ContactSection } from "@/components/sections/contact";
 import { PersonJsonLd } from "@/components/site/json-ld";
@@ -35,6 +37,7 @@ export default async function HomePage() {
     publications,
     experience,
     achievements,
+    certifications,
     posts,
     contactLinks,
   ] = await Promise.all([
@@ -46,6 +49,7 @@ export default async function HomePage() {
     getPublications(),
     getExperience(),
     getAchievements(),
+    getCertifications(),
     getPosts({ limit: 3 }),
     getContactLinks(),
   ]);
@@ -65,6 +69,7 @@ export default async function HomePage() {
       <PublicationsSection items={publications} />
       <ExperienceSection items={experience} />
       <AchievementsSection items={achievements} />
+      <CertificationsSection items={certifications} />
       <BlogPreviewSection posts={posts} />
       <ContactSection links={contactLinks} />
     </>

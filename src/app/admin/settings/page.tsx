@@ -95,7 +95,7 @@ function Card({
   return (
     <section
       className={
-        "rounded-2xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md p-6 " +
+        "rounded-2xl border border-white/[0.06] bg-ink-900/90  p-6 " +
         (className ?? "")
       }
     >

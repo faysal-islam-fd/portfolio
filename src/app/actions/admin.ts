@@ -8,6 +8,7 @@ import { createServiceClient } from "@/lib/supabase/server";
 import {
   aboutSchema,
   achievementSchema,
+  certificationSchema,
   contactLinkSchema,
   experienceSchema,
   heroSchema,
@@ -248,6 +249,28 @@ export async function deleteAchievement(id: string) {
 }
 export async function reorderAchievements(ids: string[]) {
   return reorderRows("achievements", "achievements", ["/"], ids);
+}
+
+/* =====================================================================
+   CERTIFICATIONS
+   ===================================================================== */
+
+export async function saveCertification(
+  data: z.infer<typeof certificationSchema> & { id?: string }
+) {
+  return upsertRow(
+    "certifications",
+    certificationSchema,
+    "certifications",
+    ["/"],
+    data
+  );
+}
+export async function deleteCertification(id: string) {
+  return deleteRow("certifications", "certifications", ["/"], id);
+}
+export async function reorderCertifications(ids: string[]) {
+  return reorderRows("certifications", "certifications", ["/"], ids);
 }
 
 /* =====================================================================

@@ -6,9 +6,8 @@ export function GridBackdrop({ className = "" }: { className?: string }) {
         "pointer-events-none absolute inset-0 overflow-hidden " + className
       }
     >
-      <div className="absolute inset-0 neural-grid opacity-60" />
-      <div className="absolute inset-x-0 top-0 h-[40rem] bg-radial-glow" />
-      <div className="absolute inset-0 bg-noise opacity-[0.025] mix-blend-overlay" />
+      <div className="absolute inset-0 bg-ink-950" />
+      <div className="absolute inset-0 bg-noise opacity-5" />
     </div>
   );
 }

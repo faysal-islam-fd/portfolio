@@ -47,7 +47,7 @@ export function ResearchSection({ items }: { items: Research[] }) {
 function ResearchCard({ research, index }: { research: Research; index: number }) {
   return (
     <Spotlight
-      className="group relative h-full rounded-2xl border border-white/[0.06] bg-ink-900/50 backdrop-blur-md overflow-hidden transition-colors hover:border-white/[0.12]"
+      className="group relative h-full rounded-2xl border border-white/[0.06] bg-ink-900/50  overflow-hidden transition-colors hover:border-white/[0.12]"
       size={500}
     >
       <Link href={`/research/${research.slug}`} className="block">

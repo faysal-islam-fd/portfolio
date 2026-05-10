@@ -47,7 +47,7 @@ function BlogCard({ post }: { post: Post }) {
   return (
     <Spotlight
       size={400}
-      className="group h-full rounded-2xl border border-white/[0.06] bg-ink-900/50 backdrop-blur-md overflow-hidden lift"
+      className="group h-full rounded-2xl border border-white/[0.06] bg-ink-900/50  overflow-hidden lift"
     >
       <Link href={`/blog/${post.slug}`} className="block h-full">
         <div className="relative aspect-[16/10] overflow-hidden">

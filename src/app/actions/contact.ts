@@ -1,6 +1,7 @@
 "use server";
 
 import { Resend } from "resend";
+import { revalidatePath } from "next/cache";
 
 import { createServiceClient } from "@/lib/supabase/server";
 import { contactSchema } from "@/lib/schemas";
@@ -12,11 +13,11 @@ export async function submitContactMessage(formData: FormData) {
       email: String(formData.get("email") ?? ""),
       subject: (formData.get("subject") ?? "") as string,
       message: String(formData.get("message") ?? ""),
-      website: (formData.get("website") ?? "") as string,
+      _gotcha: (formData.get("_gotcha") ?? "") as string,
     };
 
     // Honeypot trip → silently succeed without storing
-    if (raw.website && raw.website.trim().length > 0) {
+    if (raw._gotcha && raw._gotcha.trim().length > 0) {
       return { success: true as const };
     }
 
@@ -43,6 +44,8 @@ export async function submitContactMessage(formData: FormData) {
       console.error("[contact] db insert failed:", dbErr);
       return { success: false as const, error: "Could not save message." };
     }
+
+    revalidatePath("/admin", "layout");
 
     // Best-effort email notification via Resend
     if (process.env.RESEND_API_KEY && process.env.CONTACT_EMAIL_TO) {

@@ -28,7 +28,7 @@ export function StatCard({
   return (
     <Wrapper
       {...(href ? { href } : {})}
-      className="group relative rounded-2xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md p-6 transition-colors hover:border-white/[0.12] block"
+      className="group relative rounded-2xl border border-white/[0.06] bg-ink-900/90  p-6 transition-colors hover:border-white/[0.12] block"
     >
       <div className="flex items-start justify-between">
         <span

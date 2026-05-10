@@ -18,6 +18,8 @@ import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/fx/reveal";
 import { GridBackdrop } from "@/components/fx/grid-backdrop";
 import { Button } from "@/components/ui/button";
+import { ProjectJsonLd } from "@/components/site/project-json-ld";
+import { BreadcrumbJsonLd } from "@/components/site/breadcrumb-json-ld";
 import { getProjectBySlug, getProjects } from "@/lib/queries";
 import {
   PROJECT_TYPE_LABELS,
@@ -44,11 +46,21 @@ export async function generateMetadata({
   return {
     title: p.title,
     description: p.tagline ?? p.description ?? undefined,
+    keywords: p.tags?.length ? p.tags : undefined,
+    alternates: {
+      canonical: absoluteUrl(`/projects/${p.slug}`),
+    },
     openGraph: {
       title: p.title,
       description: p.tagline ?? p.description ?? undefined,
       images: p.cover_image_url ? [{ url: p.cover_image_url }] : undefined,
       url: absoluteUrl(`/projects/${p.slug}`),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: p.title,
+      description: p.tagline ?? p.description ?? undefined,
+      images: p.cover_image_url ? [p.cover_image_url] : undefined,
     },
   };
 }
@@ -65,6 +77,13 @@ export default async function ProjectDetailPage({
 
   return (
     <>
+      <ProjectJsonLd project={p} />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Projects", href: "/projects" },
+          { name: p.title, href: `/projects/${p.slug}` },
+        ]}
+      />
       <header className="relative overflow-hidden border-b border-white/[0.06]">
         <GridBackdrop />
         <div className="container-prose relative pt-12 pb-16">
@@ -83,7 +102,9 @@ export default async function ProjectDetailPage({
             {p.is_featured && <Badge variant="indigo">Featured</Badge>}
             {p.published_at && (
               <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-                {formatDate(p.published_at, { year: "numeric", month: "short" })}
+                <time dateTime={p.published_at}>
+                  {formatDate(p.published_at, { year: "numeric", month: "short" })}
+                </time>
               </span>
             )}
           </div>
@@ -145,7 +166,7 @@ export default async function ProjectDetailPage({
 
       {metrics.length > 0 && (
         <div className="container-prose mt-12">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-px rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-md overflow-hidden">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-px rounded-2xl border border-white/[0.06] bg-white/[0.04]  overflow-hidden">
             {metrics.map((m, i) => (
               <div key={i} className="bg-ink-950/40 p-6">
                 <div className="font-mono text-2xl sm:text-3xl font-semibold text-white">
@@ -283,7 +304,7 @@ function SidebarBox({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md p-5">
+    <div className="rounded-xl border border-white/[0.06] bg-ink-900/90  p-5">
       <div className="flex items-center gap-2 mb-3">
         <Icon className="h-3.5 w-3.5 text-accent-blue" />
         <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">

@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/server";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { MessageActions } from "@/components/admin/message-actions";
 import { formatDate } from "@/lib/utils";
@@ -7,7 +7,7 @@ import type { ContactMessage } from "@/lib/types";
 export const dynamic = "force-dynamic";
 
 export default async function AdminMessagesPage() {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { data } = await supabase
     .from("contact_messages")
     .select("*")
@@ -39,7 +39,7 @@ export default async function AdminMessagesPage() {
             <article
               key={m.id}
               className={
-                "rounded-2xl border bg-ink-900/40 backdrop-blur-md p-5 transition-colors " +
+                "rounded-2xl border bg-ink-900/90  p-5 transition-colors " +
                 (m.is_read
                   ? "border-white/[0.06]"
                   : "border-accent-blue/30 shadow-glow-sm")

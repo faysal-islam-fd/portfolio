@@ -54,7 +54,7 @@ export function ContactForm() {
       {/* Honeypot */}
       <input
         type="text"
-        name="website"
+        name="_gotcha"
         tabIndex={-1}
         autoComplete="off"
         className="absolute left-[-9999px] h-0 w-0 opacity-0"

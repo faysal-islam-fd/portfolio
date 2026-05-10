@@ -27,7 +27,7 @@ export function ContactSection({ links }: { links: ContactLink[] }) {
                       href={l.href}
                       target={l.href.startsWith("http") ? "_blank" : undefined}
                       rel="noreferrer"
-                      className="group flex items-center justify-between gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3.5 transition-all hover:border-accent-blue/30 hover:bg-white/[0.04]"
+                      className="group flex items-center justify-between gap-4 rounded-xl border border-white/[0.06] bg-white/[0.04] px-4 py-3.5 transition-all hover:border-accent-blue/30 hover:bg-white/[0.04]"
                     >
                       <div className="flex items-center gap-3">
                         <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/[0.04] text-zinc-300 group-hover:text-accent-blue transition-colors">
@@ -51,7 +51,7 @@ export function ContactSection({ links }: { links: ContactLink[] }) {
           </div>
 
           <Reveal delay={1} className="lg:col-span-7">
-            <div className="relative rounded-2xl border border-white/[0.06] bg-ink-900/50 backdrop-blur-md p-7 sm:p-9 glow-border">
+            <div className="relative rounded-2xl border border-white/[0.06] bg-ink-900/50  p-7 sm:p-9 glow-border">
               <div className="flex items-center gap-3 mb-7">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-accent-blue/20 to-accent-indigo/10 border border-accent-blue/30 text-accent-blue">
                   <Mail className="h-4 w-4" />

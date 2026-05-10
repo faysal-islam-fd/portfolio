@@ -66,7 +66,7 @@ function FeaturedProjectCard({ project }: { project: Project }) {
   return (
     <Spotlight
       size={700}
-      className="relative grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-3xl border border-white/[0.06] bg-ink-900/60 backdrop-blur-md overflow-hidden lift"
+      className="relative grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-3xl border border-white/[0.06] bg-ink-900/60  overflow-hidden lift"
     >
       <Link
         href={`/projects/${project.slug}`}
@@ -113,7 +113,7 @@ function FeaturedProjectCard({ project }: { project: Project }) {
         )}
 
         {metrics.length > 0 && (
-          <div className="mt-6 grid grid-cols-3 gap-px rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+          <div className="mt-6 grid grid-cols-3 gap-px rounded-xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
             {metrics.slice(0, 3).map((m, i) => (
               <div key={i} className="bg-ink-950/40 p-4">
                 <div className="font-mono text-lg font-semibold text-white">
@@ -181,7 +181,7 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <Spotlight
       size={400}
-      className="group h-full rounded-2xl border border-white/[0.06] bg-ink-900/50 backdrop-blur-md overflow-hidden lift"
+      className="group h-full rounded-2xl border border-white/[0.06] bg-ink-900/50  overflow-hidden lift"
     >
       <Link href={`/projects/${project.slug}`} className="block h-full">
         <div className="relative aspect-[16/10] overflow-hidden">

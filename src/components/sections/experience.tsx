@@ -49,7 +49,7 @@ export function ExperienceSection({ items }: { items: Experience[] }) {
                       )}
                     </div>
 
-                    <div className="flex-1 rounded-2xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md p-6 transition-colors hover:border-white/[0.12]">
+                    <div className="flex-1 rounded-2xl border border-white/[0.06] bg-ink-900/90  p-6 transition-colors hover:border-white/[0.12]">
                       <div className="flex flex-wrap items-start justify-between gap-3">
                         <div>
                           <div className="text-base sm:text-lg font-semibold text-white tracking-tight">

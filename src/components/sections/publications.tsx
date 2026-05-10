@@ -33,7 +33,7 @@ export function PublicationsSection({ items }: { items: Publication[] }) {
 function PublicationRow({ pub, index }: { pub: Publication; index: number }) {
   const link = pub.arxiv_url || pub.pdf_url;
   return (
-    <article className="group relative rounded-2xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md transition-colors hover:border-accent-blue/30 hover:bg-ink-900/60">
+    <article className="group relative rounded-2xl border border-white/[0.06] bg-ink-900/90  transition-colors hover:border-accent-blue/30 hover:bg-ink-900/60">
       <div className="grid grid-cols-12 gap-6 p-6 sm:p-7">
         <div className="col-span-12 sm:col-span-2">
           <div className="font-mono text-3xl sm:text-4xl font-semibold text-zinc-100 tabular-nums">

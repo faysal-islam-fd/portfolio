@@ -8,6 +8,7 @@ import { MDX } from "@/components/site/mdx";
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/fx/reveal";
 import { GridBackdrop } from "@/components/fx/grid-backdrop";
+import { BreadcrumbJsonLd } from "@/components/site/breadcrumb-json-ld";
 import { getResearchBySlug, getResearch } from "@/lib/queries";
 import { RESEARCH_STATUS_LABELS, formatDateRange, absoluteUrl } from "@/lib/utils";
 
@@ -29,11 +30,21 @@ export async function generateMetadata({
   return {
     title: r.title,
     description: r.abstract ?? undefined,
+    keywords: r.keywords?.length ? r.keywords : undefined,
+    alternates: {
+      canonical: absoluteUrl(`/research/${r.slug}`),
+    },
     openGraph: {
       title: r.title,
       description: r.abstract ?? undefined,
       images: r.thumbnail_url ? [{ url: r.thumbnail_url }] : undefined,
       url: absoluteUrl(`/research/${r.slug}`),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: r.title,
+      description: r.abstract ?? undefined,
+      images: r.thumbnail_url ? [r.thumbnail_url] : undefined,
     },
   };
 }
@@ -49,6 +60,12 @@ export default async function ResearchDetailPage({
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Research", href: "/research" },
+          { name: r.title, href: `/research/${r.slug}` },
+        ]}
+      />
       <header className="relative overflow-hidden border-b border-white/[0.06]">
         <GridBackdrop />
         <div className="container-prose relative pt-12 pb-16">
@@ -67,7 +84,9 @@ export default async function ResearchDetailPage({
             {r.is_featured && <Badge variant="indigo">Featured</Badge>}
             {(r.start_date || r.end_date) && (
               <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-                {formatDateRange(r.start_date, r.end_date)}
+                <time dateTime={r.start_date ?? undefined}>
+                  {formatDateRange(r.start_date, r.end_date)}
+                </time>
               </span>
             )}
           </div>
@@ -180,7 +199,7 @@ export default async function ResearchDetailPage({
               href={r.external_url}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md p-4 group hover:border-accent-blue/30 transition-colors"
+              className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-ink-900/90  p-4 group hover:border-accent-blue/30 transition-colors"
             >
               <span className="text-sm text-zinc-300 group-hover:text-white transition-colors">
                 External resource
@@ -205,7 +224,7 @@ function SidebarBox({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md p-5">
+    <div className="rounded-xl border border-white/[0.06] bg-ink-900/90  p-5">
       <div className="flex items-center gap-2 mb-3">
         <Icon className="h-3.5 w-3.5 text-accent-blue" />
         <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">

@@ -65,7 +65,6 @@
     background-image:
       radial-gradient(ellipse 1200px 600px at 50% -10%, rgba(59,130,246,0.10), transparent 60%),
       radial-gradient(ellipse 800px 500px at 100% 100%, rgba(99,102,241,0.08), transparent 60%);
-    background-attachment: fixed;
     font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
   }
 
@@ -97,7 +96,7 @@
 @layer components {
   /* Premium frosted glass surface */
   .glass {
-    @apply bg-ink-900/60 backdrop-blur-xl border border-white/[0.06];
+    @apply bg-ink-900/60  border border-white/[0.06];
     box-shadow:
       0 1px 0 0 rgba(255,255,255,0.04) inset,
       0 0 0 1px rgba(255,255,255,0.02),
@@ -105,7 +104,7 @@
   }
 
   .glass-subtle {
-    @apply bg-white/[0.02] backdrop-blur-md border border-white/[0.05];
+    @apply bg-white/[0.04]  border border-white/[0.05];
   }
 
   /* Glowing accent border */
@@ -178,9 +177,8 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.035;
+    opacity: 0.04;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    mix-blend-mode: overlay;
   }
 
   /* Magnetic button shimmer */

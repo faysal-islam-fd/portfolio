@@ -45,8 +45,8 @@ export function SiteNav() {
           className={cn(
             "relative flex items-center justify-between rounded-2xl border px-4 py-2.5 transition-all duration-300",
             scrolled
-              ? "border-white/10 bg-ink-950/70 backdrop-blur-xl shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)]"
-              : "border-white/[0.04] bg-ink-950/30 backdrop-blur-md"
+              ? "border-white/10 bg-ink-950/70  shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)]"
+              : "border-white/[0.04] bg-ink-950/30 "
           )}
         >
           <Link
@@ -119,7 +119,7 @@ export function SiteNav() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden mt-2 rounded-2xl border border-white/10 bg-ink-950/90 backdrop-blur-xl p-2"
+              className="md:hidden mt-2 rounded-2xl border border-white/10 bg-ink-950/90  p-2"
             >
               <ul className="flex flex-col">
                 {NAV_LINKS.map((l) => {

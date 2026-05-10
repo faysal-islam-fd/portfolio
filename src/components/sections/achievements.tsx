@@ -27,7 +27,7 @@ export function AchievementsSection({ items }: { items: Achievement[] }) {
               <StaggerItem key={a.id}>
                 <Spotlight
                   size={350}
-                  className="group h-full rounded-2xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md p-6 transition-colors hover:border-accent-blue/30"
+                  className="group h-full rounded-2xl border border-white/[0.06] bg-ink-900/90  p-6 transition-colors hover:border-accent-blue/30"
                 >
                   <div className="flex items-start gap-4">
                     <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-accent-blue/20 to-accent-indigo/10 border border-accent-blue/20 text-accent-blue shadow-glow-sm">

@@ -7,6 +7,7 @@ import { PageHeader } from "@/components/site/page-header";
 import { ContactIcon } from "@/components/site/contact-icon";
 import { ExperienceSection } from "@/components/sections/experience";
 import { SkillsSection } from "@/components/sections/skills";
+import { BreadcrumbJsonLd } from "@/components/site/breadcrumb-json-ld";
 import { Button } from "@/components/ui/button";
 import {
   getAbout,
@@ -14,14 +15,39 @@ import {
   getExperience,
   getSkills,
 } from "@/lib/queries";
+import { absoluteUrl } from "@/lib/utils";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: "About",
-  description:
-    "Background, research focus, and the path that brought me here.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const about = await getAbout();
+  const name = about?.full_name ?? "About";
+  const description =
+    about?.short_bio ??
+    "Background, research focus, and the path that brought me here.";
+
+  return {
+    title: `About ${name}`,
+    description,
+    alternates: {
+      canonical: absoluteUrl("/about"),
+    },
+    openGraph: {
+      title: `About ${name}`,
+      description,
+      url: absoluteUrl("/about"),
+      type: "profile",
+      ...(about?.profile_image_url
+        ? { images: [{ url: about.profile_image_url }] }
+        : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `About ${name}`,
+      description,
+    },
+  };
+}
 
 export default async function AboutPage() {
   const [about, links, experience, skills] = await Promise.all([
@@ -33,6 +59,8 @@ export default async function AboutPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd items={[{ name: "About", href: "/about" }]} />
+
       <PageHeader
         eyebrow="About"
         title={about?.full_name ?? "About"}
@@ -43,7 +71,7 @@ export default async function AboutPage() {
         <div className="container-prose">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
             <aside className="lg:col-span-4 space-y-6">
-              <div className="rounded-2xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md overflow-hidden">
+              <div className="rounded-2xl border border-white/[0.06] bg-ink-900/90  overflow-hidden">
                 <div className="relative aspect-[4/5] w-full">
                   {about?.profile_image_url ? (
                     <Image
@@ -90,7 +118,7 @@ export default async function AboutPage() {
               </div>
 
               {links?.length > 0 && (
-                <div className="rounded-2xl border border-white/[0.06] bg-ink-900/40 p-5 space-y-2">
+                <div className="rounded-2xl border border-white/[0.06] bg-ink-900/90 p-5 space-y-2">
                   <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-3">
                     Connect
                   </p>

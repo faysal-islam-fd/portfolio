@@ -56,7 +56,7 @@ function SkillCategoryCard({
   items: Skill[];
 }) {
   return (
-    <div className="group rounded-2xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md p-6 transition-colors hover:border-white/[0.12]">
+    <div className="group rounded-2xl border border-white/[0.06] bg-ink-900/90  p-6 transition-colors hover:border-white/[0.12]">
       <div className="flex items-baseline justify-between">
         <h3 className="text-base font-semibold text-white tracking-tight">
           {SKILL_CATEGORY_LABELS[category]}

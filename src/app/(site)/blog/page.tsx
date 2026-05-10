@@ -6,14 +6,25 @@ import { Clock, BookText } from "lucide-react";
 import { PageHeader } from "@/components/site/page-header";
 import { Spotlight } from "@/components/fx/spotlight";
 import { StaggerContainer, StaggerItem } from "@/components/fx/reveal";
+import { BreadcrumbJsonLd } from "@/components/site/breadcrumb-json-ld";
 import { getPosts } from "@/lib/queries";
-import { formatDate } from "@/lib/utils";
+import { absoluteUrl, formatDate } from "@/lib/utils";
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Essays on deep learning, computer vision and research engineering.",
+  description:
+    "Essays and tutorials on deep learning, computer vision, and research engineering by MD. Faysal Islam Fahad.",
+  alternates: {
+    canonical: absoluteUrl("/blog"),
+  },
+  openGraph: {
+    title: "Blog — MD. Faysal Islam Fahad",
+    description:
+      "Essays and tutorials on deep learning, computer vision, and research engineering.",
+    url: absoluteUrl("/blog"),
+  },
 };
 
 export default async function BlogIndex() {
@@ -21,6 +32,7 @@ export default async function BlogIndex() {
 
   return (
     <>
+      <BreadcrumbJsonLd items={[{ name: "Blog", href: "/blog" }]} />
       <PageHeader
         eyebrow="Blog"
         title="Notes from the lab."
@@ -38,7 +50,7 @@ export default async function BlogIndex() {
                 <StaggerItem key={p.id}>
                   <Spotlight
                     size={400}
-                    className="group h-full rounded-2xl border border-white/[0.06] bg-ink-900/50 backdrop-blur-md overflow-hidden lift"
+                    className="group h-full rounded-2xl border border-white/[0.06] bg-ink-900/50  overflow-hidden lift"
                   >
                     <Link href={`/blog/${p.slug}`} className="block h-full">
                       <div className="relative aspect-[16/10] overflow-hidden">

@@ -128,6 +128,19 @@ export const achievementSchema = z.object({
 });
 export type AchievementInput = z.infer<typeof achievementSchema>;
 
+export const certificationSchema = z.object({
+  title: z.string().min(2),
+  issuer: z.string().min(2),
+  issue_date: z.string().optional().nullable(),
+  expiry_date: z.string().optional().nullable(),
+  credential_id: z.string().optional().nullable(),
+  credential_url: z.string().url().or(z.literal("")).optional().nullable(),
+  image_url: z.string().url().or(z.literal("")).optional().nullable(),
+  description: z.string().optional().nullable(),
+  display_order: z.number().int().default(0),
+});
+export type CertificationInput = z.infer<typeof certificationSchema>;
+
 export const postSchema = z.object({
   slug,
   title: z.string().min(2),

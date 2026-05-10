@@ -31,11 +31,11 @@ export function DataTable<T extends { id: string }>({
   }
 
   return (
-    <div className="rounded-2xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md overflow-hidden">
+    <div className="rounded-2xl border border-white/[0.06] bg-ink-900/90  overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-white/[0.06] bg-white/[0.02]">
+            <tr className="border-b border-white/[0.06] bg-white/[0.04]">
               {columns.map((c, i) => (
                 <th
                   key={i}
@@ -56,7 +56,7 @@ export function DataTable<T extends { id: string }>({
             {rows.map((row) => (
               <tr
                 key={row.id}
-                className="border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02] transition-colors"
+                className="border-b border-white/[0.04] last:border-0 hover:bg-white/[0.04] transition-colors"
               >
                 {columns.map((c, i) => (
                   <td

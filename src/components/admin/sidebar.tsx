@@ -17,6 +17,7 @@ import {
   Settings,
   Trophy,
   Inbox,
+  ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -37,6 +38,7 @@ const NAV: { label: string; group: string; items: { href: string; label: string;
       { href: "/admin/experience", label: "Experience", icon: Briefcase },
       { href: "/admin/skills", label: "Skills", icon: Wrench },
       { href: "/admin/achievements", label: "Achievements", icon: Trophy },
+      { href: "/admin/certifications", label: "Certifications", icon: ShieldCheck },
     ],
   },
   {

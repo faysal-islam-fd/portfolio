@@ -50,7 +50,7 @@ export function FormSection({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-2xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md p-6 mb-6">
+    <section className="rounded-2xl border border-white/[0.06] bg-ink-900/90  p-6 mb-6">
       <header className="mb-5">
         <h2 className="text-base font-semibold text-white">{title}</h2>
         {description && (

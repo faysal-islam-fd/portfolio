@@ -18,7 +18,7 @@ export function AdminTopbar({ email }: { email: string }) {
   };
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b border-white/[0.06] bg-ink-950/80 backdrop-blur-xl px-5 sm:px-8">
+    <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b border-white/[0.06] bg-ink-950/80  px-5 sm:px-8">
       <div className="flex items-center gap-3">
         <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
           Admin Console
@@ -35,7 +35,7 @@ export function AdminTopbar({ email }: { email: string }) {
           View site <ExternalLink className="h-3 w-3" />
         </a>
 
-        <div className="flex items-center gap-2.5 px-2 py-1 rounded-lg border border-white/[0.06] bg-white/[0.02]">
+        <div className="flex items-center gap-2.5 px-2 py-1 rounded-lg border border-white/[0.06] bg-white/[0.04]">
           <span className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-accent-blue/30 to-accent-indigo/20 border border-accent-blue/30 text-xs font-semibold text-white">
             {getInitials(email || "A")}
           </span>

@@ -7,15 +7,16 @@ import {
   Trophy,
   Briefcase,
   Wrench,
+  ShieldCheck,
 } from "lucide-react";
 
-import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/server";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { StatCard } from "@/components/admin/stat-card";
 import { formatDate } from "@/lib/utils";
 
 async function countAll() {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const tables = [
     "projects",
     "research",
@@ -23,6 +24,7 @@ async function countAll() {
     "posts",
     "experience",
     "achievements",
+    "certifications",
     "skills",
     "contact_messages",
   ] as const;
@@ -39,7 +41,7 @@ async function countAll() {
 }
 
 async function recentMessages() {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { data } = await supabase
     .from("contact_messages")
     .select("id,name,email,subject,is_read,created_at")
@@ -49,7 +51,7 @@ async function recentMessages() {
 }
 
 async function recentlyEdited() {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const [projects, research, posts] = await Promise.all([
     supabase
       .from("projects")
@@ -136,6 +138,13 @@ export default async function AdminDashboard() {
           accent="indigo"
         />
         <StatCard
+          icon={ShieldCheck}
+          label="Certifications"
+          value={counts.certifications}
+          href="/admin/certifications"
+          accent="cyan"
+        />
+        <StatCard
           icon={Wrench}
           label="Skills"
           value={counts.skills}
@@ -153,7 +162,7 @@ export default async function AdminDashboard() {
       </div>
 
       <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="rounded-2xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md p-6">
+        <div className="rounded-2xl border border-white/[0.06] bg-ink-900/90  p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-base font-semibold text-white">Recent messages</h2>
             <a
@@ -194,7 +203,7 @@ export default async function AdminDashboard() {
           )}
         </div>
 
-        <div className="rounded-2xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md p-6">
+        <div className="rounded-2xl border border-white/[0.06] bg-ink-900/90  p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-base font-semibold text-white">Recently edited</h2>
           </div>

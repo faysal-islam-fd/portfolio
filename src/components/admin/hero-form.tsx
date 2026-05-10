@@ -119,7 +119,7 @@ export function HeroForm({ initial }: { initial?: Partial<Hero> }) {
         </FormSection>
       </div>
 
-      <div className="sticky bottom-0 -mx-5 sm:-mx-8 mt-8 px-5 sm:px-8 py-4 border-t border-white/[0.06] bg-ink-950/95 backdrop-blur-xl flex items-center justify-end gap-2">
+      <div className="sticky bottom-0 -mx-5 sm:-mx-8 mt-8 px-5 sm:px-8 py-4 border-t border-white/[0.06] bg-ink-950/95  flex items-center justify-end gap-2">
         <Button type="submit" disabled={pending}>
           {pending ? (
             <>

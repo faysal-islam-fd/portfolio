@@ -32,7 +32,7 @@ export function HeroSection({ hero }: { hero: HeroType | null }) {
 
       <div className="container-prose relative z-10 flex min-h-[92vh] flex-col justify-center pt-12 pb-24">
         <Reveal delay={0}>
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 ">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-blue opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-blue" />
@@ -94,7 +94,7 @@ export function HeroSection({ hero }: { hero: HeroType | null }) {
 
         {metrics.length > 0 && (
           <Reveal delay={5}>
-            <div className="mt-20 grid grid-cols-2 sm:grid-cols-4 max-w-3xl gap-px rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-md overflow-hidden">
+            <div className="mt-20 grid grid-cols-2 sm:grid-cols-4 max-w-3xl gap-px rounded-2xl border border-white/[0.06] bg-white/[0.04]  overflow-hidden">
               {metrics.slice(0, 4).map((m, i) => (
                 <div
                   key={i}

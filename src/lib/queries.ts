@@ -5,6 +5,7 @@ import { createPublicClient } from "@/lib/supabase/server";
 import type {
   About,
   Achievement,
+  Certification,
   ContactLink,
   Experience,
   Hero,
@@ -160,6 +161,19 @@ export const getAchievements = cache(
   },
   ["achievements"],
   { revalidate: 60, tags: ["achievements"] }
+);
+
+export const getCertifications = cache(
+  async (): Promise<Certification[]> => {
+    const supabase = createPublicClient();
+    const { data } = await supabase
+      .from("certifications")
+      .select("*")
+      .order("display_order", { ascending: true });
+    return (data ?? []) as Certification[];
+  },
+  ["certifications"],
+  { revalidate: 60, tags: ["certifications"] }
 );
 
 export const getPosts = cache(

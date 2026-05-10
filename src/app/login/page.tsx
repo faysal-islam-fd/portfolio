@@ -38,7 +38,7 @@ export default async function LoginPage({
           </span>
         </Link>
 
-        <div className="rounded-2xl border border-white/[0.08] bg-ink-900/60 backdrop-blur-xl p-8 glow-border">
+        <div className="rounded-2xl border border-white/[0.08] bg-ink-900/60  p-8 glow-border">
           <h1 className="text-2xl font-semibold tracking-tight text-white">
             Admin sign in
           </h1>

@@ -86,7 +86,7 @@ function SortableRow({ item }: { item: ContactLink }) {
       ref={setNodeRef}
       style={style}
       className={
-        "flex items-center gap-3 rounded-xl border border-white/[0.06] bg-ink-900/40 backdrop-blur-md p-3 " +
+        "flex items-center gap-3 rounded-xl border border-white/[0.06] bg-ink-900/90  p-3 " +
         (isDragging ? "ring-2 ring-accent-blue/40" : "")
       }
     >

@@ -7,6 +7,8 @@ import { ArrowLeft, Clock } from "lucide-react";
 import { MDX } from "@/components/site/mdx";
 import { Reveal } from "@/components/fx/reveal";
 import { GridBackdrop } from "@/components/fx/grid-backdrop";
+import { ArticleJsonLd } from "@/components/site/article-json-ld";
+import { BreadcrumbJsonLd } from "@/components/site/breadcrumb-json-ld";
 import { getPostBySlug, getPosts } from "@/lib/queries";
 import { absoluteUrl, formatDate } from "@/lib/utils";
 
@@ -28,6 +30,10 @@ export async function generateMetadata({
   return {
     title: p.title,
     description: p.excerpt ?? undefined,
+    keywords: p.tags?.length ? p.tags : undefined,
+    alternates: {
+      canonical: absoluteUrl(`/blog/${p.slug}`),
+    },
     openGraph: {
       title: p.title,
       description: p.excerpt ?? undefined,
@@ -35,6 +41,10 @@ export async function generateMetadata({
       url: absoluteUrl(`/blog/${p.slug}`),
       type: "article",
       publishedTime: p.published_at ?? undefined,
+      modifiedTime: p.updated_at ?? undefined,
+      authors: ["MD. Faysal Islam Fahad"],
+      section: "Technology",
+      tags: p.tags?.length ? p.tags : undefined,
     },
     twitter: {
       card: "summary_large_image",
@@ -56,6 +66,14 @@ export default async function PostPage({
 
   return (
     <>
+      <ArticleJsonLd post={p} />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Blog", href: "/blog" },
+          { name: p.title, href: `/blog/${p.slug}` },
+        ]}
+      />
+
       <header className="relative overflow-hidden border-b border-white/[0.06]">
         <GridBackdrop />
         <div className="container-prose relative pt-12 pb-16">
@@ -70,13 +88,13 @@ export default async function PostPage({
           <Reveal delay={1}>
             <div className="mt-8 flex items-center gap-3 text-xs text-zinc-500 font-mono">
               {p.published_at && (
-                <span>
+                <time dateTime={p.published_at}>
                   {formatDate(p.published_at, {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
                   })}
-                </span>
+                </time>
               )}
               <span className="inline-flex items-center gap-1">
                 <Clock className="h-3 w-3" />

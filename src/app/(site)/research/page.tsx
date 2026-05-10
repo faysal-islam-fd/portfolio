@@ -7,15 +7,25 @@ import { PageHeader } from "@/components/site/page-header";
 import { Spotlight } from "@/components/fx/spotlight";
 import { StaggerContainer, StaggerItem } from "@/components/fx/reveal";
 import { Badge } from "@/components/ui/badge";
+import { BreadcrumbJsonLd } from "@/components/site/breadcrumb-json-ld";
 import { getResearch } from "@/lib/queries";
-import { RESEARCH_STATUS_LABELS } from "@/lib/utils";
+import { absoluteUrl, RESEARCH_STATUS_LABELS } from "@/lib/utils";
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Research",
+  title: "Publications & Research",
   description:
-    "Active investigations and thesis work in vision transformers, self-supervised learning, and efficient inference.",
+    "Technical reports, publications, and deep learning experiments by MD. Faysal Islam Fahad.",
+  alternates: {
+    canonical: absoluteUrl("/research"),
+  },
+  openGraph: {
+    title: "Publications & Research — MD. Faysal Islam Fahad",
+    description:
+      "Technical reports, publications, and deep learning experiments.",
+    url: absoluteUrl("/research"),
+  },
 };
 
 export default async function ResearchIndex() {
@@ -23,10 +33,11 @@ export default async function ResearchIndex() {
 
   return (
     <>
+      <BreadcrumbJsonLd items={[{ name: "Research", href: "/research" }]} />
       <PageHeader
         eyebrow="Research"
-        title="Investigations & thesis work."
-        description="Where I'm pushing the frontier — open questions, ongoing experiments, and accepted contributions."
+        title="Technical reports & papers."
+        description="Applied deep learning research and technical publications."
       />
 
       <section className="section">
@@ -39,7 +50,7 @@ export default async function ResearchIndex() {
                 <StaggerItem key={r.id}>
                   <Spotlight
                     size={500}
-                    className="group h-full rounded-2xl border border-white/[0.06] bg-ink-900/50 backdrop-blur-md overflow-hidden lift"
+                    className="group h-full rounded-2xl border border-white/[0.06] bg-ink-900/50  overflow-hidden lift"
                   >
                     <Link href={`/research/${r.slug}`} className="block h-full">
                       {r.thumbnail_url ? (
