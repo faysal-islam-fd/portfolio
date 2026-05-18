@@ -82,9 +82,9 @@ export const metadata: Metadata = {
     },
   },
   // Uncomment and add your Google Search Console verification code:
-  // verification: {
-  //   google: "your-google-verification-code",
-  // },
+  verification: {
+    google: "oUlOeEFQgnYmSyBB9rWk7QoW6q9GoWgO6fHtViItV2s",
+  },
 };
 
 export const viewport: Viewport = {
