@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: FULL_TITLE,
     description: SITE_DESC,
-    creator: "@faysalfahad", // Update with your real Twitter handle
+    creator: "@faysal_islam_fd",
   },
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
@@ -99,12 +99,40 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "MD. Faysal Islam Fahad",
+    "alternateName": ["Faysal Islam", "Faysal Fahad", "MD Faysal", "Faysal Islam Fahad"],
+    "jobTitle": "Deep Learning Engineer",
+    "description": SITE_DESC,
+    "url": absoluteUrl(),
+    "sameAs": [
+      "https://github.com/faysalfahad",
+      "https://linkedin.com/in/faysalfahad",
+      "https://twitter.com/faysalfahad"
+    ],
+    "knowsAbout": [
+      "Deep Learning",
+      "Computer Vision",
+      "Vision Transformers",
+      "Artificial Intelligence",
+      "Machine Learning",
+      "Multimodal AI",
+      "Edge AI"
+    ]
+  };
+
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
         className="font-sans antialiased grain min-h-screen"
         suppressHydrationWarning
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
         <Toaster
           position="bottom-right"

@@ -59,7 +59,7 @@ export function SiteNav() {
               <span className="absolute inset-0 rounded-lg bg-accent-blue/30 blur-md opacity-50 group-hover:opacity-90 transition-opacity" />
             </span>
             <span className="hidden sm:inline-block font-semibold tracking-tight text-zinc-100">
-              AI<span className="text-accent-blue">/</span>Researcher
+              Faysal Islam Fahad
             </span>
           </Link>
 
