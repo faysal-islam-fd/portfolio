@@ -42,11 +42,33 @@ export async function updateSession(request: NextRequest) {
   const isAdminRoute = pathname.startsWith("/admin");
   const isLoginRoute = pathname.startsWith("/login");
 
-  // Already authenticated? Redirect /login → /admin
+  // Already authenticated? Redirect /login → /admin (only if they are actually an admin)
   if (user && isLoginRoute) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/admin";
-    return NextResponse.redirect(url);
+    const email = user.email;
+    let ok = false;
+    if (email) {
+      const lower = email.toLowerCase();
+      const ADMIN_EMAILS = (process.env.ADMIN_EMAILS ?? "")
+        .split(",")
+        .map((s) => s.trim().toLowerCase())
+        .filter(Boolean);
+      if (ADMIN_EMAILS.includes(lower)) {
+        ok = true;
+      } else {
+        const { data } = await supabase
+          .from("admins")
+          .select("email")
+          .eq("email", lower)
+          .maybeSingle();
+        ok = Boolean(data);
+      }
+    }
+
+    if (ok) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/admin";
+      return NextResponse.redirect(url);
+    }
   }
 
   // Unauthenticated trying to reach /admin → /login
