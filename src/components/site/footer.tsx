@@ -8,9 +8,8 @@ const COLUMNS = [
     label: "Explore",
     links: [
       { label: "About", href: "/about" },
-      { label: "Research", href: "/research" },
+      { label: "Services", href: "/services" },
       { label: "Projects", href: "/projects" },
-      { label: "Publications", href: "/publications" },
       { label: "Blog", href: "/blog" },
     ],
   },
@@ -37,13 +36,12 @@ export async function SiteFooter() {
                 <Sparkles className="h-4 w-4 text-white" strokeWidth={2.4} />
               </span>
               <span className="font-semibold tracking-tight text-zinc-100">
-                AI<span className="text-accent-blue">/</span>Researcher
+                AI<span className="text-accent-blue">/</span>Architect
               </span>
             </Link>
             <p className="mt-4 max-w-md text-sm text-zinc-400">
-              Building intelligent systems that see, reason, and learn —
-              from vision transformers to multimodal models that ship to
-              production.
+              Building autonomous AI agents, multi-agent systems, advanced RAG pipelines,
+              and custom computer vision models that automate workflows and drive business value.
             </p>
             {links.length > 0 && (
               <div className="mt-6 flex flex-wrap items-center gap-2">

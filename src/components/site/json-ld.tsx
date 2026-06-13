@@ -8,11 +8,11 @@ import type { About, ContactLink, Publication } from "@/lib/types";
 export function PersonJsonLd({
   about,
   links,
-  publications,
+  publications = [],
 }: {
   about: About | null;
   links: ContactLink[];
-  publications: Publication[];
+  publications?: Publication[];
 }) {
   if (!about) return null;
 
@@ -37,18 +37,19 @@ export function PersonJsonLd({
         .filter((l) => l.href.startsWith("http"))
         .map((l) => l.href),
       knowsAbout: [
-        "Deep Learning",
-        "Vision Transformers",
+        "Generative AI",
+        "AI Agents",
+        "LangChain",
+        "LangGraph",
+        "RAG (Retrieval-Augmented Generation)",
+        "Model Context Protocol (MCP)",
         "Computer Vision",
-        "Multimodal Learning",
-        "AI Research",
-        "Edge AI",
-        "Self-Supervised Learning",
+        "Vision Transformers",
+        "Deep Learning",
         "PyTorch",
-        "Neural Networks",
       ],
       publishingPrinciples: about.research_focus ?? undefined,
-      workExample: publications.slice(0, 5).map((p) => ({
+      workExample: (publications || []).slice(0, 5).map((p) => ({
         "@type": "ScholarlyArticle",
         headline: p.title,
         datePublished: `${p.year}`,

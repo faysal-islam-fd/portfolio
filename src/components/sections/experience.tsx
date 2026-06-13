@@ -28,7 +28,7 @@ export function ExperienceSection({ items }: { items: Experience[] }) {
         <SectionHeading
           eyebrow="06 — Experience"
           title="A timeline of the work."
-          description="Roles, programs and research positions that shaped how I think about AI."
+          description="Roles, programs, and projects where I built and shipped AI solutions."
         />
 
         <div className="relative mt-16">

@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
-export const alt = "MD. Faysal Islam Fahad — Deep Learning Engineer & AI Researcher";
+export const alt = "MD. Faysal Islam Fahad — AI Solutions & Agent Architect";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -69,7 +69,7 @@ export default function OGImage() {
               letterSpacing: "-0.02em",
             }}
           >
-            Engineer
+            AI Solutions Architect
           </span>
         </div>
 
@@ -98,8 +98,8 @@ export default function OGImage() {
             maxWidth: "700px",
           }}
         >
-          Deep Learning Engineer — Computer Vision,
-          Multimodal Learning, Edge AI
+          AI Solutions & Agent Architect — Generative AI,
+          LangGraph, RAG, Computer Vision
         </p>
 
         <div
@@ -109,7 +109,7 @@ export default function OGImage() {
             gap: "24px",
           }}
         >
-          {["Research", "Projects", "Publications", "Blog"].map((label) => (
+          {["Services", "Projects", "Blog", "Contact"].map((label) => (
             <span
               key={label}
               style={{

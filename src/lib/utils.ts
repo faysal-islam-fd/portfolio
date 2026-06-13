@@ -67,24 +67,24 @@ export function getInitials(name: string) {
 }
 
 export const SKILL_CATEGORY_LABELS: Record<string, string> = {
-  deep_learning: "Deep Learning",
-  computer_vision: "Computer Vision",
-  nlp: "NLP & Multimodal",
+  deep_learning: "Deep Learning & Transformers",
+  computer_vision: "Computer Vision & ViTs",
+  nlp: "Generative AI & Agents",
   ml_frameworks: "ML Frameworks",
-  languages: "Languages",
+  languages: "Programming Languages",
   tools: "Tools & Ops",
-  cloud: "Cloud",
-  web: "Web",
+  cloud: "Cloud & Deployment",
+  web: "Web Integration",
 };
 
 export const PROJECT_TYPE_LABELS: Record<string, string> = {
-  research: "Research",
+  research: "AI Agent & Automation",
   computer_vision: "Computer Vision",
-  nlp: "NLP",
-  multimodal: "Multimodal",
+  nlp: "Gen AI & RAG",
+  multimodal: "Multimodal AI",
   reinforcement_learning: "Reinforcement Learning",
-  web: "Web",
-  tool: "Tool",
+  web: "Web App",
+  tool: "AI Tool / MCP",
 };
 
 export const PUBLICATION_TYPE_LABELS: Record<string, string> = {
@@ -97,9 +97,9 @@ export const PUBLICATION_TYPE_LABELS: Record<string, string> = {
 };
 
 export const RESEARCH_STATUS_LABELS: Record<string, string> = {
-  in_progress: "In Progress",
-  under_review: "Under Review",
-  accepted: "Accepted",
-  published: "Published",
-  completed: "Completed",
+  in_progress: "In Development",
+  under_review: "Beta",
+  accepted: "Available",
+  published: "Active",
+  completed: "Ready",
 };

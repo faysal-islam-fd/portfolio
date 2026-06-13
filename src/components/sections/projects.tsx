@@ -24,8 +24,8 @@ export function ProjectsSection({
         <div className="flex items-end justify-between flex-wrap gap-6">
           <SectionHeading
             eyebrow="03 — Projects"
-            title="AI research, shipped."
-            description="A selection of deep learning case studies — from architecture design to deployment-grade inference pipelines."
+            title="Shipped AI Solutions."
+            description="A selection of production-grade AI agents, RAG workflows, and custom machine learning systems built for clients."
           />
           {!showAll && (
             <Reveal>

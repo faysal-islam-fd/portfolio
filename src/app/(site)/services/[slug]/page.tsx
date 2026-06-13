@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, Users, Tag } from "lucide-react";
+import { ArrowLeft, ExternalLink, Users, Cpu } from "lucide-react";
 
 import { MDX } from "@/components/site/mdx";
 import { Badge } from "@/components/ui/badge";
@@ -32,13 +32,13 @@ export async function generateMetadata({
     description: r.abstract ?? undefined,
     keywords: r.keywords?.length ? r.keywords : undefined,
     alternates: {
-      canonical: absoluteUrl(`/research/${r.slug}`),
+      canonical: absoluteUrl(`/services/${r.slug}`),
     },
     openGraph: {
       title: r.title,
       description: r.abstract ?? undefined,
       images: r.thumbnail_url ? [{ url: r.thumbnail_url }] : undefined,
-      url: absoluteUrl(`/research/${r.slug}`),
+      url: absoluteUrl(`/services/${r.slug}`),
     },
     twitter: {
       card: "summary_large_image",
@@ -49,7 +49,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ResearchDetailPage({
+export default async function ServiceDetailPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -62,8 +62,8 @@ export default async function ResearchDetailPage({
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: "Research", href: "/research" },
-          { name: r.title, href: `/research/${r.slug}` },
+          { name: "Services", href: "/services" },
+          { name: r.title, href: `/services/${r.slug}` },
         ]}
       />
       <header className="relative overflow-hidden border-b border-white/[0.06]">
@@ -71,10 +71,10 @@ export default async function ResearchDetailPage({
         <div className="container-prose relative pt-12 pb-16">
           <Reveal>
             <Link
-              href="/research"
+              href="/services"
               className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-white transition-colors"
             >
-              <ArrowLeft className="h-3.5 w-3.5" /> All research
+              <ArrowLeft className="h-3.5 w-3.5" /> All services
             </Link>
           </Reveal>
           <div className="mt-8 flex flex-wrap items-center gap-2">
@@ -125,7 +125,7 @@ export default async function ResearchDetailPage({
           {r.problem_statement && (
             <section className="mb-10">
               <h2 className="text-2xl font-semibold text-white tracking-tight">
-                Problem
+                Client Need / Challenge
               </h2>
               <p className="mt-3 text-zinc-300 leading-relaxed">
                 {r.problem_statement}
@@ -135,7 +135,7 @@ export default async function ResearchDetailPage({
           {r.methodology && (
             <section className="mb-10">
               <h2 className="text-2xl font-semibold text-white tracking-tight">
-                Methodology
+                Solutions & Architecture
               </h2>
               <p className="mt-3 text-zinc-300 leading-relaxed whitespace-pre-line">
                 {r.methodology}
@@ -145,7 +145,7 @@ export default async function ResearchDetailPage({
           {r.results && (
             <section className="mb-10">
               <h2 className="text-2xl font-semibold text-white tracking-tight">
-                Results
+                Deliverables & Business Value
               </h2>
               <p className="mt-3 text-zinc-300 leading-relaxed whitespace-pre-line">
                 {r.results}
@@ -172,7 +172,7 @@ export default async function ResearchDetailPage({
 
         <aside className="lg:col-span-4 space-y-6">
           {r.keywords?.length > 0 && (
-            <SidebarBox label="Keywords" icon={Tag}>
+            <SidebarBox label="Tech Stack" icon={Cpu}>
               <div className="flex flex-wrap gap-1.5">
                 {r.keywords.map((k) => (
                   <span
@@ -186,7 +186,7 @@ export default async function ResearchDetailPage({
             </SidebarBox>
           )}
           {r.collaborators?.length > 0 && (
-            <SidebarBox label="Collaborators" icon={Users}>
+            <SidebarBox label="Project Team" icon={Users}>
               <ul className="text-sm space-y-1.5">
                 {r.collaborators.map((c, i) => (
                   <li key={i} className="text-zinc-300">{c}</li>

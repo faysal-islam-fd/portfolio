@@ -27,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
-      url: absoluteUrl("/research"),
+      url: absoluteUrl("/services"),
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.8,
@@ -37,12 +37,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.8,
-    },
-    {
-      url: absoluteUrl("/publications"),
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
     },
     {
       url: absoluteUrl("/blog"),
@@ -67,7 +61,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const researchEntries: MetadataRoute.Sitemap = research.map((r) => ({
-    url: absoluteUrl(`/research/${r.slug}`),
+    url: absoluteUrl(`/services/${r.slug}`),
     lastModified: new Date(r.updated_at),
     changeFrequency: "monthly",
     priority: r.is_featured ? 0.9 : 0.7,

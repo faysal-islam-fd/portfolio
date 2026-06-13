@@ -108,9 +108,9 @@ export default function RootLayout({
     "description": SITE_DESC,
     "url": absoluteUrl(),
     "sameAs": [
-      "https://github.com/faysalfahad",
-      "https://linkedin.com/in/faysalfahad",
-      "https://twitter.com/faysalfahad"
+      "https://github.com/faysal-islam-fd",
+      "https://linkedin.com/in/faysal-islam-fd",
+      "https://x.com/faysal_islam_fd"
     ],
     "knowsAbout": [
       "Deep Learning",

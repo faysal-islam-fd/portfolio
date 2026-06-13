@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, FlaskConical } from "lucide-react";
+import { ArrowUpRight, Bot } from "lucide-react";
 
 import { PageHeader } from "@/components/site/page-header";
 import { Spotlight } from "@/components/fx/spotlight";
@@ -14,30 +14,30 @@ import { absoluteUrl, RESEARCH_STATUS_LABELS } from "@/lib/utils";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Publications & Research",
+  title: "AI Services & Solutions",
   description:
-    "Technical reports, publications, and deep learning experiments by MD. Faysal Islam Fahad.",
+    "Production-grade AI agents, RAG systems, and custom machine learning workflows by MD. Faysal Islam Fahad.",
   alternates: {
-    canonical: absoluteUrl("/research"),
+    canonical: absoluteUrl("/services"),
   },
   openGraph: {
-    title: "Publications & Research — MD. Faysal Islam Fahad",
+    title: "AI Services & Solutions — MD. Faysal Islam Fahad",
     description:
-      "Technical reports, publications, and deep learning experiments.",
-    url: absoluteUrl("/research"),
+      "Production-grade AI agents, RAG systems, and custom machine learning workflows.",
+    url: absoluteUrl("/services"),
   },
 };
 
-export default async function ResearchIndex() {
+export default async function ServicesIndex() {
   const items = await getResearch();
 
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Research", href: "/research" }]} />
+      <BreadcrumbJsonLd items={[{ name: "Services", href: "/services" }]} />
       <PageHeader
-        eyebrow="Research"
-        title="Technical reports & papers."
-        description="Applied deep learning research and technical publications."
+        eyebrow="Services"
+        title="Custom AI solutions for your business."
+        description="Production-grade AI agents, semantic search systems, and tailored machine learning workflows built to deliver results."
       />
 
       <section className="section">
@@ -52,7 +52,7 @@ export default async function ResearchIndex() {
                     size={500}
                     className="group h-full rounded-2xl border border-white/[0.06] bg-ink-900/50  overflow-hidden lift"
                   >
-                    <Link href={`/research/${r.slug}`} className="block h-full">
+                    <Link href={`/services/${r.slug}`} className="block h-full">
                       {r.thumbnail_url ? (
                         <div className="relative aspect-[16/9] overflow-hidden">
                           <Image
@@ -68,7 +68,7 @@ export default async function ResearchIndex() {
                         <div className="relative aspect-[16/9] bg-gradient-to-br from-ink-800 via-ink-900 to-black overflow-hidden">
                           <div className="absolute inset-0 neural-grid opacity-50" />
                           <div className="absolute inset-0 flex items-center justify-center">
-                            <FlaskConical className="h-14 w-14 text-accent-blue/40" />
+                            <Bot className="h-14 w-14 text-accent-blue/40" />
                           </div>
                         </div>
                       )}
@@ -97,7 +97,7 @@ export default async function ResearchIndex() {
                           </div>
                         )}
                         <div className="mt-5 flex items-center gap-1.5 text-sm text-accent-blue font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                          Read details <ArrowUpRight className="h-3.5 w-3.5" />
+                          View details <ArrowUpRight className="h-3.5 w-3.5" />
                         </div>
                       </div>
                     </Link>
@@ -115,7 +115,7 @@ export default async function ResearchIndex() {
 function Empty() {
   return (
     <div className="rounded-2xl border border-dashed border-white/10 p-16 text-center">
-      <p className="text-zinc-400">No research entries yet. Add some from the admin panel.</p>
+      <p className="text-zinc-400">No services entries yet. Add some from the admin panel.</p>
     </div>
   );
 }

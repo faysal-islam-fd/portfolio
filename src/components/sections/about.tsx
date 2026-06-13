@@ -15,8 +15,8 @@ export function AboutSection({ about }: { about: About | null }) {
       <div className="container-prose">
         <SectionHeading
           eyebrow="01 — About"
-          title="Researcher. Builder. Practitioner."
-          description="I bridge cutting-edge AI research with engineering rigor — building deep learning systems that actually ship."
+          title="Architect. Developer. Builder."
+          description="I build robust AI applications, agents, and custom machine learning pipelines that automate workflows and solve real-world problems."
         />
 
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-12 gap-10">
@@ -46,7 +46,7 @@ export function AboutSection({ about }: { about: About | null }) {
                 <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink-900 to-transparent" />
                 <div className="absolute bottom-5 left-5 right-5">
                   <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent-blue">
-                    {about.research_focus ?? "AI Research"}
+                    {about.research_focus ?? "Generative AI & Agents"}
                   </div>
                   <div className="mt-1 text-xl font-semibold text-white">
                     {about.full_name === "Your Name" ? "MD. Faysal Islam Fahad" : about.full_name}
