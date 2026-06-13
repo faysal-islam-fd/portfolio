@@ -96,7 +96,7 @@ export function ResearchForm({ initial }: { initial?: Partial<Research> }) {
                 required
               />
             </FormField>
-            <FormField label="Abstract">
+            <FormField label="Service Overview / Summary">
               <Textarea
                 value={v.abstract ?? ""}
                 onChange={(e) => set("abstract", e.target.value)}
@@ -105,22 +105,22 @@ export function ResearchForm({ initial }: { initial?: Partial<Research> }) {
             </FormField>
           </FormSection>
 
-          <FormSection title="Investigation">
-            <FormField label="Problem statement">
+          <FormSection title="Service Details">
+            <FormField label="Client Need / Challenge">
               <Textarea
                 value={v.problem_statement ?? ""}
                 onChange={(e) => set("problem_statement", e.target.value)}
                 rows={3}
               />
             </FormField>
-            <FormField label="Methodology">
+            <FormField label="Solutions & Architecture">
               <Textarea
                 value={v.methodology ?? ""}
                 onChange={(e) => set("methodology", e.target.value)}
                 rows={4}
               />
             </FormField>
-            <FormField label="Results">
+            <FormField label="Deliverables & Business Value">
               <Textarea
                 value={v.results ?? ""}
                 onChange={(e) => set("results", e.target.value)}
@@ -206,13 +206,13 @@ export function ResearchForm({ initial }: { initial?: Partial<Research> }) {
           </FormSection>
 
           <FormSection title="Metadata">
-            <FormField label="Collaborators">
+            <FormField label="Project Team / Partners">
               <TagInput
                 value={v.collaborators ?? []}
                 onChange={(t) => set("collaborators", t)}
               />
             </FormField>
-            <FormField label="Keywords">
+            <FormField label="Tech Stack / Tags">
               <TagInput
                 value={v.keywords ?? []}
                 onChange={(t) => set("keywords", t)}
@@ -237,7 +237,7 @@ export function ResearchForm({ initial }: { initial?: Partial<Research> }) {
             </>
           ) : (
             <>
-              <Save className="h-4 w-4" /> Save research
+              <Save className="h-4 w-4" /> Save service
             </>
           )}
         </Button>

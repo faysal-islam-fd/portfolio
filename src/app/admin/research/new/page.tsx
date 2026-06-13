@@ -1,9 +1,9 @@
 import { FormShell } from "@/components/admin/form-shell";
 import { ResearchForm } from "@/components/admin/research-form";
 
-export default function NewResearchPage() {
+export default function NewServicePage() {
   return (
-    <FormShell title="New research" backHref="/admin/research">
+    <FormShell title="New service" backHref="/admin/research">
       <ResearchForm />
     </FormShell>
   );

@@ -23,10 +23,10 @@ export default async function AdminResearchPage() {
   return (
     <>
       <AdminPageHeader
-        title="Research"
-        description="Active investigations, thesis work, and accepted contributions."
+        title="Services"
+        description="Manage your client-facing services and solution offerings."
         newHref="/admin/research/new"
-        newLabel="New research"
+        newLabel="New service"
       />
       <DataTable<Research>
         rows={rows}

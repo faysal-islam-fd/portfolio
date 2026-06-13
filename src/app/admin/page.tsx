@@ -1,7 +1,6 @@
 import {
   FolderKanban,
-  FlaskConical,
-  FileText,
+  Bot,
   BookText,
   Inbox,
   Trophy,
@@ -20,7 +19,6 @@ async function countAll() {
   const tables = [
     "projects",
     "research",
-    "publications",
     "posts",
     "experience",
     "achievements",
@@ -71,7 +69,7 @@ async function recentlyEdited() {
   ]);
   return [
     ...(projects.data ?? []).map((x) => ({ ...x, kind: "Project", href: `/admin/projects/${x.id}` })),
-    ...(research.data ?? []).map((x) => ({ ...x, kind: "Research", href: `/admin/research/${x.id}` })),
+    ...(research.data ?? []).map((x) => ({ ...x, kind: "Service", href: `/admin/research/${x.id}` })),
     ...(posts.data ?? []).map((x) => ({ ...x, kind: "Post", href: `/admin/posts/${x.id}` })),
   ]
     .sort((a, b) => +new Date(b.updated_at) - +new Date(a.updated_at))
@@ -103,18 +101,11 @@ export default async function AdminDashboard() {
           accent="blue"
         />
         <StatCard
-          icon={FlaskConical}
-          label="Research"
+          icon={Bot}
+          label="Services"
           value={counts.research}
           href="/admin/research"
           accent="indigo"
-        />
-        <StatCard
-          icon={FileText}
-          label="Publications"
-          value={counts.publications}
-          href="/admin/publications"
-          accent="cyan"
         />
         <StatCard
           icon={BookText}

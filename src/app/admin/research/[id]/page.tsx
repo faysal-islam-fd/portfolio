@@ -7,7 +7,7 @@ import type { Research } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
-export default async function EditResearchPage({
+export default async function EditServicePage({
   params,
 }: {
   params: Promise<{ id: string }>;

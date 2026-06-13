@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
-  FlaskConical,
+  Bot,
   FolderKanban,
   BookText,
   Award,
@@ -32,8 +32,7 @@ const NAV: { label: string; group: string; items: { href: string; label: string;
     label: "content",
     items: [
       { href: "/admin/projects", label: "Projects", icon: FolderKanban },
-      { href: "/admin/research", label: "Research", icon: FlaskConical },
-      { href: "/admin/publications", label: "Publications", icon: FileText },
+      { href: "/admin/research", label: "Services", icon: Bot },
       { href: "/admin/posts", label: "Blog Posts", icon: BookText },
       { href: "/admin/experience", label: "Experience", icon: Briefcase },
       { href: "/admin/skills", label: "Skills", icon: Wrench },
