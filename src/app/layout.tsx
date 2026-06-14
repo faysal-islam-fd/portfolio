@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     creator: "@faysal_islam_fd",
   },
   icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    icon: [{ url: "/favicon.png", type: "image/png" }],
   },
   robots: {
     index: true,
