@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X, Terminal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -53,11 +53,11 @@ export function SiteNav() {
             className="group inline-flex items-center gap-2.5"
             aria-label="Home"
           >
-            <span className="relative inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-b from-accent-blue to-accent-indigo shadow-glow-sm">
-              <Sparkles className="h-4 w-4 text-white" strokeWidth={2.4} />
-              <span className="absolute inset-0 rounded-lg bg-accent-blue/30 blur-md opacity-50 group-hover:opacity-90 transition-opacity" />
+            <span className="relative inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.02] text-zinc-400 group-hover:border-accent-blue/30 group-hover:text-accent-blue transition-all duration-300">
+              <Terminal className="h-4 w-4 transition-transform group-hover:scale-105" strokeWidth={2} />
+              <span className="absolute inset-0 rounded-lg bg-accent-blue/5 opacity-0 group-hover:opacity-100 blur-sm transition-opacity" />
             </span>
-            <span className="hidden sm:inline-block font-semibold tracking-tight text-zinc-100">
+            <span className="font-semibold tracking-tight text-zinc-100 group-hover:text-white transition-colors">
               Faysal Islam Fahad
             </span>
           </Link>

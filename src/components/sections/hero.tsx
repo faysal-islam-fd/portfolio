@@ -1,14 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, FileText, MapPin, Briefcase, Sparkles } from "lucide-react";
+import { ArrowRight, FileText, Sparkles } from "lucide-react";
 
 import { NeuralNetwork } from "@/components/fx/neural-network";
 import { GridBackdrop } from "@/components/fx/grid-backdrop";
 import { Typewriter } from "@/components/fx/typewriter";
-import { Reveal, StaggerContainer, StaggerItem } from "@/components/fx/reveal";
+import { Reveal } from "@/components/fx/reveal";
 import { Button } from "@/components/ui/button";
 import { Spotlight } from "@/components/fx/spotlight";
-import type { Hero as HeroType, About as AboutType, Metric } from "@/lib/types";
+import type { Hero as HeroType, About as AboutType } from "@/lib/types";
 
 export function HeroSection({
   hero,
@@ -25,7 +25,18 @@ export function HeroSection({
         "Computer Vision Specialist",
         "Deep Learning Engineer",
       ];
-  const metrics: Metric[] = (hero?.metrics ?? []) as Metric[];
+
+  // Clean eyebrow: strip duplicate name if present and change to AI Engineer
+  let cleanedEyebrow = hero?.eyebrow
+    ? (hero.eyebrow.includes("·") ? hero.eyebrow.split("·")[1].trim() : hero.eyebrow)
+    : "AI Engineer";
+  cleanedEyebrow = cleanedEyebrow.replace("AI Solutions Architect", "AI Engineer");
+
+  // Clean headline: replace seeded cluttery headline with a sleek alternative
+  const rawHeadline = hero?.headline ?? "Building autonomous AI agents and intelligent systems.";
+  const displayHeadline = rawHeadline === "Building autonomous AI agents and intelligent systems."
+    ? "Engineering next-generation AI agents & multi-agent systems."
+    : rawHeadline;
 
   return (
     <section className="relative min-h-[92vh] overflow-hidden flex items-center">
@@ -50,7 +61,7 @@ export function HeroSection({
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-blue" />
                 </span>
                 <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-300">
-                  {hero?.eyebrow ?? "MD. Faysal Islam Fahad · AI Solutions Architect"}
+                  {cleanedEyebrow}
                 </span>
               </div>
             </Reveal>
@@ -58,7 +69,7 @@ export function HeroSection({
             <Reveal delay={1}>
               <h1 className="mt-6 text-balance text-[clamp(2.25rem,5vw,4.5rem)] font-semibold leading-[1.05] tracking-tight">
                 <span className="text-gradient">
-                  {hero?.headline ?? "Building autonomous AI agents and intelligent systems."}
+                  {displayHeadline}
                 </span>
               </h1>
             </Reveal>
@@ -72,8 +83,8 @@ export function HeroSection({
 
             <Reveal delay={3}>
               <p className="mt-6 max-w-xl text-pretty text-base sm:text-lg leading-relaxed text-zinc-400">
-                {about?.long_bio ?? hero?.subheadline ??
-                  "I build production-grade AI agents (LangGraph, CrewAI), multi-agent systems, advanced RAG pipelines, and custom vision models that automate workflows and solve complex business problems."}
+                {about?.short_bio ?? hero?.subheadline ??
+                  "AI Engineer specializing in autonomous agentic workflows and custom machine learning models."}
               </p>
             </Reveal>
 
@@ -93,36 +104,11 @@ export function HeroSection({
                 </Button>
               </div>
             </Reveal>
-
-            {metrics.length > 0 && (
-              <Reveal delay={5}>
-                <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-px rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden max-w-xl">
-                  {metrics.slice(0, 4).map((m, i) => (
-                    <div key={i} className="relative bg-ink-950/40 p-4 group">
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-b from-accent-blue/5 to-transparent" />
-                      <div className="relative">
-                        <div className="font-mono text-2xl font-semibold text-white tracking-tight">
-                          {m.value}
-                          {m.unit && (
-                            <span className="text-accent-blue text-lg ml-0.5">
-                              {m.unit}
-                            </span>
-                          )}
-                        </div>
-                        <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.15em] text-zinc-500">
-                          {m.label}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </Reveal>
-            )}
           </div>
 
-          {/* Right Column: Photo Card and Info Badges */}
+          {/* Right Column: Photo Card */}
           {about && (
-            <div className="lg:col-span-5 flex flex-col justify-center">
+            <div className="lg:col-span-5 flex flex-col justify-center mt-6 lg:mt-0">
               <Reveal delay={2}>
                 <Spotlight className="rounded-2xl glass overflow-hidden max-w-sm mx-auto w-full" size={500}>
                   <div className="relative aspect-[4/5] w-full">
@@ -150,7 +136,7 @@ export function HeroSection({
                     <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink-900 to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4">
                       <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent-blue font-medium">
-                        {about.research_focus ?? "AI Solutions Architect"}
+                        {about.research_focus?.replace("AI Solutions Architect", "AI Engineer") ?? "AI Engineer"}
                       </div>
                       <div className="mt-1 text-lg font-semibold text-white">
                         {about.full_name ?? "MD. Faysal Islam Fahad"}
@@ -158,58 +144,14 @@ export function HeroSection({
                     </div>
                   </div>
                 </Spotlight>
-
-                <div className="mt-4 grid grid-cols-2 gap-3 max-w-sm mx-auto w-full">
-                  {about.current_role && (
-                    <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3 flex items-center gap-2">
-                      <Briefcase className="h-4 w-4 text-accent-blue shrink-0" />
-                      <div className="min-w-0">
-                        <div className="text-[9px] text-zinc-500 font-mono uppercase tracking-wider">Currently</div>
-                        <div className="text-xs text-zinc-200 font-medium truncate">{about.current_role}</div>
-                      </div>
-                    </div>
-                  )}
-                  {about.location && (
-                    <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3 flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-accent-indigo shrink-0" />
-                      <div className="min-w-0">
-                        <div className="text-[9px] text-zinc-500 font-mono uppercase tracking-wider">Based in</div>
-                        <div className="text-xs text-zinc-200 font-medium truncate">{about.location}</div>
-                      </div>
-                    </div>
-                  )}
-                </div>
               </Reveal>
             </div>
           )}
 
         </div>
-
-        {about?.highlights && about.highlights.length > 0 && (
-          <Reveal delay={6} className="mt-16 pt-12 border-t border-white/[0.06]">
-            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-6">
-              Core Capabilities & Highlights
-            </div>
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {about.highlights.map((h, i) => (
-                <StaggerItem
-                  key={i}
-                  className="group relative rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-colors hover:border-accent-blue/30 hover:bg-white/[0.04]"
-                >
-                  <div className="flex items-start gap-3">
-                    <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-md bg-accent-blue/10 text-accent-blue font-mono text-xs">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <p className="text-sm text-zinc-300 leading-relaxed">
-                      {h}
-                    </p>
-                  </div>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </Reveal>
-        )}
       </div>
     </section>
   );
 }
+
+

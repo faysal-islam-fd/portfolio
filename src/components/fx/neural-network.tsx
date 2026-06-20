@@ -13,10 +13,10 @@ import { useEffect, useRef } from "react";
  */
 export function NeuralNetwork({
   className,
-  density = 0.000095,
-  maxNodes = 120,
-  linkDistance = 160,
-  speed = 0.18,
+  density = 0.00004,
+  maxNodes = 45,
+  linkDistance = 110,
+  speed = 0.15,
 }: {
   className?: string;
   density?: number;
@@ -45,7 +45,7 @@ export function NeuralNetwork({
     let nodes: Node[] = [];
     let width = 0;
     let height = 0;
-    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let dpr = 1;
     let bgGrad: CanvasGradient | null = null;
 
     type Node = {
@@ -110,7 +110,7 @@ export function NeuralNetwork({
     };
 
     const onResize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = 1;
       init();
     };
 
@@ -125,6 +125,10 @@ export function NeuralNetwork({
     };
 
     const draw = () => {
+      if (!isVisible) {
+        rafRef.current = requestAnimationFrame(draw);
+        return;
+      }
       ctx.clearRect(0, 0, width, height);
 
       if (bgGrad) {
@@ -218,12 +222,22 @@ export function NeuralNetwork({
       cancelAnimationFrame(rafRef.current);
     }
 
+    let isVisible = true;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry?.isIntersecting ?? false;
+      },
+      { rootMargin: "100px" }
+    );
+    observer.observe(canvas);
+
     window.addEventListener("resize", onResize);
     canvas.addEventListener("mousemove", onMouseMove);
     canvas.addEventListener("mouseleave", onMouseLeave);
 
     return () => {
       cancelAnimationFrame(rafRef.current);
+      observer.disconnect();
       window.removeEventListener("resize", onResize);
       canvas.removeEventListener("mousemove", onMouseMove);
       canvas.removeEventListener("mouseleave", onMouseLeave);
