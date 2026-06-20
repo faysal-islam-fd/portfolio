@@ -52,7 +52,9 @@ export function truncate(text: string | null | undefined, len = 160) {
 export function absoluteUrl(path = "") {
   const base =
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-    "http://localhost:3000";
+    (process.env.NODE_ENV === "production"
+      ? "https://www.faysalislamfahad.dev"
+      : "http://localhost:3000");
   return `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
