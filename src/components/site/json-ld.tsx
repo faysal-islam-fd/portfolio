@@ -67,7 +67,7 @@ export function PersonJsonLd({
     name: about.full_name ?? "AI Researcher Portfolio",
     description:
       about.short_bio ??
-      "Deep Learning Engineer Portfolio",
+      "AI Engineer Portfolio",
     publisher: {
       "@id": `${siteUrl}#person`,
     },

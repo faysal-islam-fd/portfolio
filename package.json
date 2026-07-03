@@ -2,7 +2,7 @@
   "name": "ai-researcher-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Cinematic portfolio platform for a Deep Learning Engineer & AI Researcher",
+  "description": "Cinematic portfolio platform for an AI Engineer & Researcher",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

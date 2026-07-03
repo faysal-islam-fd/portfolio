@@ -23,7 +23,7 @@ export function HeroSection({
         "AI Agent Architect",
         "Gen AI Developer",
         "Computer Vision Specialist",
-        "Deep Learning Engineer",
+        "AI Engineer",
       ];
 
   // Clean eyebrow: strip duplicate name if present and change to AI Engineer

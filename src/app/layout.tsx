@@ -6,9 +6,9 @@ import { absoluteUrl } from "@/lib/utils";
 
 const SITE_NAME =
   process.env.NEXT_PUBLIC_SITE_NAME ?? "MD. Faysal Islam Fahad";
-const FULL_TITLE = "MD. Faysal Islam Fahad — Deep Learning Engineer";
+const FULL_TITLE = "MD. Faysal Islam Fahad — AI Engineer";
 const SITE_DESC =
-  "MD. Faysal Islam Fahad is a Deep Learning Engineer specializing in Computer Vision, multimodal learning, and edge AI. Explore his projects, research, and blog.";
+  "MD. Faysal Islam Fahad is an AI Engineer specializing in autonomous agents, RAG systems, and custom computer vision. Explore his projects, research, and blog.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(absoluteUrl()),
@@ -104,7 +104,7 @@ export default function RootLayout({
     "@type": "Person",
     "name": "MD. Faysal Islam Fahad",
     "alternateName": ["Faysal Islam", "Faysal Fahad", "MD Faysal", "Faysal Islam Fahad"],
-    "jobTitle": "Deep Learning Engineer",
+    "jobTitle": "AI Engineer",
     "description": SITE_DESC,
     "url": absoluteUrl(),
     "sameAs": [

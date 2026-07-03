@@ -18,10 +18,9 @@ insert into public.hero (
   'Building autonomous AI agents and intelligent systems.',
   'I build production-grade AI agents (LangGraph, CrewAI), multi-agent systems, advanced RAG pipelines, and custom vision models that automate workflows and solve complex business problems.',
   array[
+    'AI Engineer',
     'AI Agent Architect',
-    'Gen AI Developer',
-    'Computer Vision Specialist',
-    'Deep Learning Engineer'
+    'Gen AI Developer'
   ],
   'View Services', '/services',
   'Read CV', '/about',
