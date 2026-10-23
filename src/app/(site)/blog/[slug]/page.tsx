@@ -2,11 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Clock } from "lucide-react";
 
 import { MDX } from "@/components/site/mdx";
-import { Reveal } from "@/components/fx/reveal";
-import { GridBackdrop } from "@/components/fx/grid-backdrop";
 import { ArticleJsonLd } from "@/components/site/article-json-ld";
 import { BreadcrumbJsonLd } from "@/components/site/breadcrumb-json-ld";
 import { getPostBySlug, getPosts } from "@/lib/queries";
@@ -69,73 +66,48 @@ export default async function PostPage({
       <ArticleJsonLd post={p} />
       <BreadcrumbJsonLd
         items={[
-          { name: "Blog", href: "/blog" },
+          { name: "Writing", href: "/blog" },
           { name: p.title, href: `/blog/${p.slug}` },
         ]}
       />
 
-      <header className="relative overflow-hidden border-b border-white/[0.06]">
-        <GridBackdrop />
-        <div className="container-prose relative pt-12 pb-16">
-          <Reveal>
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-white transition-colors"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" /> All posts
-            </Link>
-          </Reveal>
-          <Reveal delay={1}>
-            <div className="mt-8 flex items-center gap-3 text-xs text-zinc-500 font-mono">
-              {p.published_at && (
-                <time dateTime={p.published_at}>
-                  {formatDate(p.published_at, {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </time>
-              )}
-              <span className="inline-flex items-center gap-1">
-                <Clock className="h-3 w-3" />
-                {p.reading_minutes} min read
-              </span>
-            </div>
-          </Reveal>
-          <Reveal delay={2}>
-            <h1 className="mt-4 text-balance text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-gradient">
-              {p.title}
-            </h1>
-          </Reveal>
-          {p.excerpt && (
-            <Reveal delay={3}>
-              <p className="mt-6 max-w-3xl text-lg leading-relaxed text-zinc-300">
-                {p.excerpt}
-              </p>
-            </Reveal>
+      <header className="wrap pt-12 pb-12 sm:pt-16">
+        <Link href="/blog" className="kicker hover:text-fg transition-colors">
+          ← All writing
+        </Link>
+        <p className="kicker rise mt-10">
+          {p.published_at && (
+            <time dateTime={p.published_at}>
+              {formatDate(p.published_at, { year: "numeric", month: "long", day: "numeric" })}
+            </time>
           )}
-        </div>
+          {" · "}
+          {p.reading_minutes} min read
+        </p>
+        <h1 className="display rise rise-1 mt-5 max-w-4xl text-[clamp(2.5rem,6vw,5rem)] text-balance">
+          {p.title}
+        </h1>
+        {p.excerpt && <p className="lede rise rise-2 mt-6 max-w-3xl">{p.excerpt}</p>}
       </header>
 
       {p.cover_image_url && (
-        <div className="container-prose mt-10">
-          <div className="relative aspect-[16/8] rounded-2xl overflow-hidden border border-white/[0.06]">
+        <div className="wrap">
+          <div className="relative aspect-[16/8] overflow-hidden rounded-md border border-line bg-paper-2">
             <Image
               src={p.cover_image_url}
               alt={p.title}
               fill
               priority
               className="object-cover"
-              sizes="(max-width:1280px) 100vw, 1280px"
+              sizes="(max-width:1240px) 100vw, 1240px"
             />
           </div>
         </div>
       )}
 
-      <article className="container-prose mt-16 max-w-3xl">
+      <article className="wrap max-w-3xl py-14">
         <MDX source={p.content_mdx} />
       </article>
-      <div className="h-32" />
     </>
   );
 }

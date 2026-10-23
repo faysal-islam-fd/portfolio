@@ -1,121 +1,131 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowUpRight, Bot } from "lucide-react";
 
-import { PageHeader } from "@/components/site/page-header";
-import { Spotlight } from "@/components/fx/spotlight";
-import { StaggerContainer, StaggerItem } from "@/components/fx/reveal";
-import { Badge } from "@/components/ui/badge";
 import { BreadcrumbJsonLd } from "@/components/site/breadcrumb-json-ld";
-import { getResearch } from "@/lib/queries";
-import { absoluteUrl, RESEARCH_STATUS_LABELS } from "@/lib/utils";
+import { ClosingCta, PageIntro } from "@/components/brand/section";
+import { PROCESS } from "@/content/profile";
+import { SERVICES } from "@/content/services";
+import { getCaseStudy } from "@/content/work";
+import { absoluteUrl } from "@/lib/utils";
 
-export const revalidate = 60;
+const DESCRIPTION =
+  "Freelance AI engineering by Faysal Islam Fahad: AI copilots and agents for operations, RAG over your documents, forecasting and churn models, and AI-native MVPs built end to end.";
 
 export const metadata: Metadata = {
-  title: "AI Services & Solutions",
-  description:
-    "Production-grade AI agents, RAG systems, and custom machine learning workflows by MD. Faysal Islam Fahad.",
-  alternates: {
-    canonical: absoluteUrl("/services"),
-  },
+  title: "Services",
+  description: DESCRIPTION,
+  alternates: { canonical: absoluteUrl("/services") },
   openGraph: {
-    title: "AI Services & Solutions — MD. Faysal Islam Fahad",
-    description:
-      "Production-grade AI agents, RAG systems, and custom machine learning workflows.",
+    title: "Services — Faysal Islam Fahad",
+    description: DESCRIPTION,
     url: absoluteUrl("/services"),
   },
 };
 
-export default async function ServicesIndex() {
-  const items = await getResearch();
+export default function ServicesIndex() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: SERVICES.map((s, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Service",
+        name: s.name,
+        description: s.promise,
+        url: absoluteUrl(`/services/${s.slug}`),
+        provider: { "@id": `${absoluteUrl()}#person` },
+        areaServed: "Worldwide",
+      },
+    })),
+  };
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <BreadcrumbJsonLd items={[{ name: "Services", href: "/services" }]} />
-      <PageHeader
-        eyebrow="Services"
-        title="Custom AI solutions for your business."
-        description="Production-grade AI agents, semantic search systems, and tailored machine learning workflows built to deliver results."
+      <PageIntro
+        label="Services"
+        title={
+          <>
+            Four ways I can help — <em className="text-signal">each one already shipped.</em>
+          </>
+        }
+        intro="I only offer what I've built before and can show you. If your problem doesn't fit neatly, write anyway — I'll tell you honestly whether I'm the right person for it."
       />
 
-      <section className="section">
-        <div className="container-prose">
-          {items.length === 0 ? (
-            <Empty />
-          ) : (
-            <StaggerContainer className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {items.map((r) => (
-                <StaggerItem key={r.id}>
-                  <Spotlight
-                    size={500}
-                    className="group h-full rounded-2xl border border-white/[0.06] bg-ink-900/50  overflow-hidden lift"
-                  >
-                    <Link href={`/services/${r.slug}`} className="block h-full">
-                      {r.thumbnail_url ? (
-                        <div className="relative aspect-[16/9] overflow-hidden">
-                          <Image
-                            src={r.thumbnail_url}
-                            alt={r.title}
-                            fill
-                            className="object-cover transition-transform duration-700 group-hover:scale-105"
-                            sizes="(max-width:1024px) 100vw, 600px"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/30 to-transparent" />
-                        </div>
-                      ) : (
-                        <div className="relative aspect-[16/9] bg-gradient-to-br from-ink-800 via-ink-900 to-black overflow-hidden">
-                          <div className="absolute inset-0 neural-grid opacity-50" />
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <Bot className="h-14 w-14 text-accent-blue/40" />
-                          </div>
-                        </div>
+      <section className="wrap pb-24">
+        <ol className="border-t border-line">
+          {SERVICES.map((s, i) => {
+            const proof = getCaseStudy(s.proof);
+            return (
+              <li key={s.slug} className="border-b border-line">
+                <article className="grid grid-cols-1 gap-8 py-12 sm:py-16 lg:grid-cols-12">
+                  <div className="lg:col-span-6">
+                    <p className="kicker">
+                      <span className="text-signal">{String.fromCharCode(65 + i)}</span> — Service
+                    </p>
+                    <h2 className="display mt-4 text-[clamp(2.1rem,4vw,3.5rem)] text-balance">
+                      <Link href={`/services/${s.slug}`} className="hover:text-signal transition-colors">
+                        {s.name}
+                      </Link>
+                    </h2>
+                    <p className="lede mt-5">{s.promise}</p>
+                    <p className="mt-4 text-fg-3 leading-relaxed">
+                      <span className="kicker">For</span> {s.forWho}
+                    </p>
+                    <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-[15px]">
+                      <Link href={`/services/${s.slug}`} className="font-medium ulink">
+                        What&apos;s included <span aria-hidden>→</span>
+                      </Link>
+                      {proof && (
+                        <Link href={`/projects/${proof.slug}`} className="text-fg-3 hover:text-fg transition-colors">
+                          Proof: {proof.name}
+                        </Link>
                       )}
-                      <div className="p-7">
-                        <Badge variant="accent">
-                          {RESEARCH_STATUS_LABELS[r.status] ?? r.status}
-                        </Badge>
-                        <h3 className="mt-4 text-2xl font-semibold text-white tracking-tight text-balance group-hover:text-gradient-accent transition-all">
-                          {r.title}
-                        </h3>
-                        {r.abstract && (
-                          <p className="mt-3 text-zinc-400 leading-relaxed line-clamp-3">
-                            {r.abstract}
-                          </p>
-                        )}
-                        {r.keywords?.length > 0 && (
-                          <div className="mt-5 flex flex-wrap gap-1.5">
-                            {r.keywords.slice(0, 6).map((k) => (
-                              <span
-                                key={k}
-                                className="font-mono text-[10px] uppercase tracking-wider text-zinc-400 border border-white/10 rounded-md px-2 py-0.5"
-                              >
-                                {k}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                        <div className="mt-5 flex items-center gap-1.5 text-sm text-accent-blue font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                          View details <ArrowUpRight className="h-3.5 w-3.5" />
-                        </div>
-                      </div>
-                    </Link>
-                  </Spotlight>
-                </StaggerItem>
+                    </div>
+                  </div>
+                  <div className="lg:col-span-6">
+                    <p className="kicker">You get</p>
+                    <ul className="mt-4 border-t border-line">
+                      {s.deliverables.map((d) => (
+                        <li key={d} className="flex gap-3 border-b border-line py-3 text-[15px] text-fg-2">
+                          <span aria-hidden className="text-signal">+</span>
+                          {d}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+
+      <section className="border-t border-line">
+        <div className="wrap grid grid-cols-1 gap-6 py-20 sm:py-28 md:grid-cols-12">
+          <div className="md:col-span-3">
+            <p className="kicker">How engagements run</p>
+          </div>
+          <div className="md:col-span-9">
+            <h2 className="display text-[clamp(2rem,4vw,3.25rem)] text-balance">
+              Small scope, weekly demos, no surprises.
+            </h2>
+            <ol className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-2">
+              {PROCESS.map((p) => (
+                <li key={p.step} className="bg-paper p-6">
+                  <span className="font-mono text-xs text-signal">{p.step}</span>
+                  <h3 className="mt-3 font-medium text-fg">{p.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-fg-2">{p.body}</p>
+                </li>
               ))}
-            </StaggerContainer>
-          )}
+            </ol>
+          </div>
         </div>
       </section>
-    </>
-  );
-}
 
-function Empty() {
-  return (
-    <div className="rounded-2xl border border-dashed border-white/10 p-16 text-center">
-      <p className="text-zinc-400">No services entries yet. Add some from the admin panel.</p>
-    </div>
+      <ClosingCta />
+    </>
   );
 }

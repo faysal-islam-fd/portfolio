@@ -1,28 +1,20 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-
-import { GridBackdrop } from "@/components/fx/grid-backdrop";
-import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
-    <div className="relative min-h-[80vh] grid place-items-center overflow-hidden">
-      <GridBackdrop />
-      <div className="relative text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent-blue">
-          Error 404
+    <div className="site grid min-h-screen place-items-center">
+      <div className="wrap max-w-2xl py-24">
+        <p className="kicker">
+          <span className="text-signal">404</span> — Not found
         </p>
-        <h1 className="mt-4 text-6xl sm:text-8xl font-semibold tracking-tight text-gradient">
-          Page not found
+        <h1 className="display mt-5 text-[clamp(3rem,9vw,6.5rem)]">
+          This page <em className="text-signal">doesn&apos;t exist.</em>
         </h1>
-        <p className="mt-5 mx-auto max-w-md text-zinc-400">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <Button asChild className="mt-8" size="lg">
-          <Link href="/">
-            <ArrowLeft className="h-4 w-4" /> Back home
-          </Link>
-        </Button>
+        <p className="lede mt-6">It may have moved when the site was reorganised.</p>
+        <div className="mt-9 flex flex-wrap gap-3">
+          <Link href="/" className="btn btn-solid">Home</Link>
+          <Link href="/projects" className="btn btn-line">See the work</Link>
+        </div>
       </div>
     </div>
   );

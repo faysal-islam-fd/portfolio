@@ -19,7 +19,20 @@ const config: Config = {
     },
     extend: {
       colors: {
-        // Cinematic AI lab palette
+        // Public-site brand palette — "engineering paper". Values live in
+        // globals.css so light/dark can swap them.
+        paper: {
+          DEFAULT: "rgb(var(--paper) / <alpha-value>)",
+          2: "rgb(var(--paper-2) / <alpha-value>)",
+        },
+        fg: {
+          DEFAULT: "rgb(var(--fg) / <alpha-value>)",
+          2: "rgb(var(--fg-2) / <alpha-value>)",
+          3: "rgb(var(--fg-3) / <alpha-value>)",
+        },
+        line: "rgb(var(--line) / <alpha-value>)",
+        signal: "rgb(var(--signal) / <alpha-value>)",
+        // Cinematic AI lab palette (admin panel)
         ink: {
           950: "#050505",
           900: "#0B0B0B",
@@ -74,9 +87,10 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        mono: ["var(--font-jetbrains)", "ui-monospace", "monospace"],
-        display: ["var(--font-inter)", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+        display: ["var(--font-sans)", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
       },
       backgroundImage: {
         "grid-pattern":

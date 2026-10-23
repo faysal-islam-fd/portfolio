@@ -1,22 +1,17 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, Users, Cpu } from "lucide-react";
 
-import { MDX } from "@/components/site/mdx";
-import { Badge } from "@/components/ui/badge";
-import { Reveal } from "@/components/fx/reveal";
-import { GridBackdrop } from "@/components/fx/grid-backdrop";
 import { BreadcrumbJsonLd } from "@/components/site/breadcrumb-json-ld";
-import { getResearchBySlug, getResearch } from "@/lib/queries";
-import { RESEARCH_STATUS_LABELS, formatDateRange, absoluteUrl } from "@/lib/utils";
+import { Anatomy } from "@/components/brand/anatomy";
+import { ClosingCta } from "@/components/brand/section";
+import { PRINCIPLES, PROCESS } from "@/content/profile";
+import { SERVICES, getService } from "@/content/services";
+import { getCaseStudy } from "@/content/work";
+import { absoluteUrl } from "@/lib/utils";
 
-export const revalidate = 60;
-
-export async function generateStaticParams() {
-  const items = await getResearch();
-  return items.map((r) => ({ slug: r.slug }));
+export function generateStaticParams() {
+  return SERVICES.map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({
@@ -25,213 +20,153 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const r = await getResearchBySlug(slug);
-  if (!r) return { title: "Not found" };
+  const s = getService(slug);
+  if (!s) return { title: "Not found" };
+  const url = absoluteUrl(`/services/${s.slug}`);
   return {
-    title: r.title,
-    description: r.abstract ?? undefined,
-    keywords: r.keywords?.length ? r.keywords : undefined,
-    alternates: {
-      canonical: absoluteUrl(`/services/${r.slug}`),
-    },
-    openGraph: {
-      title: r.title,
-      description: r.abstract ?? undefined,
-      images: r.thumbnail_url ? [{ url: r.thumbnail_url }] : undefined,
-      url: absoluteUrl(`/services/${r.slug}`),
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: r.title,
-      description: r.abstract ?? undefined,
-      images: r.thumbnail_url ? [r.thumbnail_url] : undefined,
-    },
+    title: s.name,
+    description: s.promise,
+    alternates: { canonical: url },
+    openGraph: { title: `${s.name} — Faysal Islam Fahad`, description: s.promise, url },
+    twitter: { card: "summary_large_image", title: s.name, description: s.promise },
   };
 }
 
-export default async function ServiceDetailPage({
+export default async function ServicePage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const r = await getResearchBySlug(slug);
-  if (!r) notFound();
+  const s = getService(slug);
+  if (!s) notFound();
+  const proof = getCaseStudy(s.proof);
+  const others = SERVICES.filter((o) => o.slug !== s.slug);
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: s.name,
+    description: s.promise,
+    url: absoluteUrl(`/services/${s.slug}`),
+    provider: { "@id": `${absoluteUrl()}#person` },
+    areaServed: "Worldwide",
+  };
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <BreadcrumbJsonLd
         items={[
           { name: "Services", href: "/services" },
-          { name: r.title, href: `/services/${r.slug}` },
+          { name: s.name, href: `/services/${s.slug}` },
         ]}
       />
-      <header className="relative overflow-hidden border-b border-white/[0.06]">
-        <GridBackdrop />
-        <div className="container-prose relative pt-12 pb-16">
-          <Reveal>
-            <Link
-              href="/services"
-              className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-white transition-colors"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" /> All services
+
+      <header className="wrap pt-12 pb-16 sm:pt-16">
+        <Link href="/services" className="kicker hover:text-fg transition-colors">
+          ← All services
+        </Link>
+        <h1 className="display rise mt-10 max-w-5xl text-[clamp(2.75rem,7vw,6rem)] text-balance">
+          {s.name}
+        </h1>
+        <p className="lede rise rise-1 mt-7 max-w-3xl">{s.promise}</p>
+        <div className="rise rise-2 mt-9 flex flex-wrap gap-3">
+          <Link href={`/contact?service=${s.slug}`} className="btn btn-solid h-12 px-6">
+            Discuss your project <span aria-hidden>→</span>
+          </Link>
+          {proof && (
+            <Link href={`/projects/${proof.slug}`} className="btn btn-line h-12 px-6">
+              See the proof: {proof.name}
             </Link>
-          </Reveal>
-          <div className="mt-8 flex flex-wrap items-center gap-2">
-            <Badge variant="accent">
-              {RESEARCH_STATUS_LABELS[r.status] ?? r.status}
-            </Badge>
-            {r.is_featured && <Badge variant="indigo">Featured</Badge>}
-            {(r.start_date || r.end_date) && (
-              <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-                <time dateTime={r.start_date ?? undefined}>
-                  {formatDateRange(r.start_date, r.end_date)}
-                </time>
-              </span>
-            )}
-          </div>
-          <Reveal delay={1}>
-            <h1 className="mt-5 text-balance text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-gradient">
-              {r.title}
-            </h1>
-          </Reveal>
-          {r.abstract && (
-            <Reveal delay={2}>
-              <p className="mt-6 max-w-3xl text-lg leading-relaxed text-zinc-300">
-                {r.abstract}
-              </p>
-            </Reveal>
           )}
         </div>
       </header>
 
-      {r.thumbnail_url && (
-        <div className="container-prose mt-10">
-          <div className="relative aspect-[16/8] rounded-2xl overflow-hidden border border-white/[0.06]">
-            <Image
-              src={r.thumbnail_url}
-              alt={r.title}
-              fill
-              className="object-cover"
-              sizes="(max-width:1280px) 100vw, 1280px"
-              priority
-            />
-          </div>
-        </div>
-      )}
-
-      <div className="container-prose mt-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <article className="lg:col-span-8">
-          {r.problem_statement && (
-            <section className="mb-10">
-              <h2 className="text-2xl font-semibold text-white tracking-tight">
-                Client Need / Challenge
-              </h2>
-              <p className="mt-3 text-zinc-300 leading-relaxed">
-                {r.problem_statement}
-              </p>
-            </section>
-          )}
-          {r.methodology && (
-            <section className="mb-10">
-              <h2 className="text-2xl font-semibold text-white tracking-tight">
-                Solutions & Architecture
-              </h2>
-              <p className="mt-3 text-zinc-300 leading-relaxed whitespace-pre-line">
-                {r.methodology}
-              </p>
-            </section>
-          )}
-          {r.results && (
-            <section className="mb-10">
-              <h2 className="text-2xl font-semibold text-white tracking-tight">
-                Deliverables & Business Value
-              </h2>
-              <p className="mt-3 text-zinc-300 leading-relaxed whitespace-pre-line">
-                {r.results}
-              </p>
-            </section>
-          )}
-          {r.diagram_url && (
-            <figure className="my-10 rounded-2xl overflow-hidden border border-white/[0.06]">
-              <div className="relative aspect-[16/9]">
-                <Image
-                  src={r.diagram_url}
-                  alt={`${r.title} – architecture diagram`}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <figcaption className="px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-zinc-500 border-t border-white/[0.06]">
-                Architecture diagram
-              </figcaption>
-            </figure>
-          )}
-          {r.content_mdx && <MDX source={r.content_mdx} />}
-        </article>
-
-        <aside className="lg:col-span-4 space-y-6">
-          {r.keywords?.length > 0 && (
-            <SidebarBox label="Tech Stack" icon={Cpu}>
-              <div className="flex flex-wrap gap-1.5">
-                {r.keywords.map((k) => (
-                  <span
-                    key={k}
-                    className="font-mono text-[10px] uppercase tracking-wider text-zinc-300 border border-white/10 rounded-md px-2 py-0.5"
-                  >
-                    {k}
-                  </span>
-                ))}
-              </div>
-            </SidebarBox>
-          )}
-          {r.collaborators?.length > 0 && (
-            <SidebarBox label="Project Team" icon={Users}>
-              <ul className="text-sm space-y-1.5">
-                {r.collaborators.map((c, i) => (
-                  <li key={i} className="text-zinc-300">{c}</li>
-                ))}
-              </ul>
-            </SidebarBox>
-          )}
-          {r.external_url && (
-            <a
-              href={r.external_url}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-ink-900/90  p-4 group hover:border-accent-blue/30 transition-colors"
-            >
-              <span className="text-sm text-zinc-300 group-hover:text-white transition-colors">
-                External resource
-              </span>
-              <ExternalLink className="h-4 w-4 text-zinc-500 group-hover:text-accent-blue transition-colors" />
-            </a>
-          )}
-        </aside>
+      <div className="wrap">
+        <Row label="Who it's for">
+          <p className="text-xl leading-relaxed text-fg">{s.forWho}</p>
+        </Row>
+        <Row label="The real problem">
+          <p className="text-lg leading-relaxed text-fg-2">{s.problem}</p>
+        </Row>
+        <Row label="What you get">
+          <ul className="border-t border-line">
+            {s.deliverables.map((d) => (
+              <li key={d} className="flex gap-3 border-b border-line py-3.5 text-[16px] text-fg-2">
+                <span aria-hidden className="text-signal">+</span>
+                {d}
+              </li>
+            ))}
+          </ul>
+        </Row>
+        <Row label="Typical stack">
+          <ul className="flex flex-wrap gap-2">
+            {s.stack.map((t) => (
+              <li key={t} className="tag text-xs">{t}</li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm text-fg-3">
+            I&apos;ll work with your existing stack where it makes sense — these are defaults, not requirements.
+          </p>
+        </Row>
+        {proof && (
+          <Row label="Proof">
+            <p className="kicker">{proof.name} · {proof.status} · {proof.year}</p>
+            <h2 className="display mt-3 text-[clamp(1.75rem,3vw,2.5rem)] text-balance">{proof.title}</h2>
+            <Anatomy stages={proof.anatomy} className="mt-8" />
+            <Link href={`/projects/${proof.slug}`} className="mt-6 inline-flex items-center gap-2 text-[15px] font-medium ulink">
+              Read the case study <span aria-hidden>→</span>
+            </Link>
+          </Row>
+        )}
+        <Row label="How we'd work">
+          <ol className="grid grid-cols-1 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-2">
+            {PROCESS.map((p) => (
+              <li key={p.step} className="bg-paper p-5">
+                <span className="font-mono text-xs text-signal">{p.step}</span>
+                <h3 className="mt-2 font-medium text-fg">{p.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-fg-2">{p.body}</p>
+              </li>
+            ))}
+          </ol>
+          <ul className="mt-8 space-y-3 text-[15px] text-fg-2">
+            {PRINCIPLES.slice(0, 3).map((p) => (
+              <li key={p.title} className="flex gap-3">
+                <span aria-hidden className="text-signal">→</span>
+                <span><strong className="font-medium text-fg">{p.title}</strong> {p.body}</span>
+              </li>
+            ))}
+          </ul>
+        </Row>
       </div>
-      <div className="h-32" />
+
+      <section className="border-t border-line">
+        <div className="wrap py-14">
+          <p className="kicker">Other services</p>
+          <ul className="mt-5 grid grid-cols-1 gap-6 md:grid-cols-3">
+            {others.map((o) => (
+              <li key={o.slug}>
+                <Link href={`/services/${o.slug}`} className="group block">
+                  <span className="display text-2xl group-hover:text-signal transition-colors">{o.name} →</span>
+                  <span className="mt-1.5 block text-sm text-fg-3">{o.promise}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <ClosingCta />
     </>
   );
 }
 
-function SidebarBox({
-  label,
-  icon: Icon,
-  children,
-}: {
-  label: string;
-  icon: React.ComponentType<{ className?: string }>;
-  children: React.ReactNode;
-}) {
+function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-white/[0.06] bg-ink-900/90  p-5">
-      <div className="flex items-center gap-2 mb-3">
-        <Icon className="h-3.5 w-3.5 text-accent-blue" />
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
-          {label}
-        </span>
-      </div>
-      {children}
-    </div>
+    <section className="grid grid-cols-1 gap-6 border-t border-line py-12 md:grid-cols-12">
+      <h2 className="kicker md:col-span-3 md:pt-1.5">{label}</h2>
+      <div className="md:col-span-9">{children}</div>
+    </section>
   );
 }

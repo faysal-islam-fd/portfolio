@@ -1,30 +1,51 @@
-# AI Researcher Portfolio
+# Faysal Islam Fahad — Portfolio
 
-A cinematic, production-ready personal-portfolio platform for a Deep Learning
-Engineer & AI Researcher. Built with Next.js 15 (App Router), Supabase,
-Tailwind, Framer Motion and shadcn/ui — every section is dynamic and editable
-from a built-in admin panel.
+Personal brand site for a full-stack AI engineer, built with Next.js 15
+(App Router), Supabase and Tailwind, plus an admin panel for projects,
+writing, certifications and contact messages.
 
-## Highlights
+## Brand in one line
 
-- **Cinematic hero** with an animated neural-network canvas, parallax glow,
-  and a typewriter rotator.
-- **Dark luxury aesthetic** inspired by OpenAI / Vercel / Apple / Linear —
-  glassmorphism panels, glow borders, grain overlay, layered radial gradients.
-- **Public sections**: Hero · About · Research · Projects · Skills ·
-  Publications · Experience · Achievements · Blog · Contact.
-- **Detail pages** for projects, research, and blog posts with MDX content
-  rendering.
-- **Admin panel** at `/admin/*` with full CRUD for every entity, MDX editor,
-  drag-and-drop reorder, image uploads to Supabase Storage, message inbox,
-  and analytics-style dashboard.
-- **Auth**: Supabase email/password + admin allow-list (via env var or
-  `public.admins` table).
-- **SEO**: `generateMetadata`, OG / Twitter cards, JSON-LD `Person`, sitemap,
-  robots.
-- **Email**: contact form persists to DB and sends via Resend.
-- **Storage**: avatars, projects, research, posts, resumes, site assets — all
-  served through Supabase Storage public buckets.
+**Models where they help. Code where it has to be right.** Every case
+study shows an "anatomy" diagram with the same visual grammar —
+solid = deterministic code, dashed = model output, filled = guardrail,
+tinted = data — so visitors see how a system is engineered, not just
+which tools it uses.
+
+## Content model
+
+| What | Where it lives | Edited by |
+| --- | --- | --- |
+| Positioning, principles, process, experience, stack, channels | `src/content/profile.ts` | code (git) |
+| Case studies + "also built" index | `src/content/work.ts` | code (git) |
+| Services | `src/content/services.ts` | code (git) |
+| Extra projects, blog posts, certifications, profile photo, résumé PDF | Supabase | `/admin` |
+| Contact messages | Supabase (+ Resend email) | `/admin/messages` |
+
+The narrative lives in code on purpose: it is reviewed in git and every
+claim in it is backed by a public link (live product, repository or CV).
+**Do not add metrics or achievements that cannot be linked to evidence.**
+
+Projects added in `/admin/projects` appear automatically on `/projects`
+(and get a detail page) unless a hand-written case study with the same
+slug exists in `src/content/work.ts`. The admin sections for hero,
+about text, services ("research"), skills, experience and achievements
+are no longer read by the public site.
+
+`supabase/migrations/0004_remove_placeholder_content.sql` removes example
+claims that the original seed inserted. Review it, then run it once.
+
+## Design system
+
+- Palette: warm paper, ink, one signal colour (`#C43E1A`), with an
+  automatic dark variant. Tokens are RGB triplets in `src/app/globals.css`
+  exposed to Tailwind as `paper`, `fg`, `line`, `signal`.
+- Type: Instrument Serif (display), Geist (text), Geist Mono (labels),
+  loaded with `next/font`.
+- Public-site styles are scoped under `.site`; the admin panel keeps its
+  own dark theme.
+- Brand components: `src/components/brand/*`. OG images share one renderer
+  in `src/lib/og.tsx`.
 
 ---
 
@@ -35,7 +56,6 @@ from a built-in admin panel.
 | Framework   | Next.js 15 App Router · React 19 · TypeScript                              |
 | Styling     | Tailwind CSS · tailwindcss-animate · custom design tokens                  |
 | UI          | shadcn/ui primitives · Radix UI · Lucide icons                             |
-| Motion      | Framer Motion · canvas-based neural network · IntersectionObserver         |
 | Backend     | Supabase (Postgres · Auth · Storage)                                       |
 | Forms       | React Hook Form · Zod                                                      |
 | MDX         | `@next/mdx` · `next-mdx-remote` · `@uiw/react-md-editor`                   |
@@ -83,16 +103,15 @@ from a built-in admin panel.
 │   │   ├── login/                   # Supabase auth
 │   │   ├── api/resume/              # Resume redirect
 │   │   ├── actions/                 # Server actions (admin · contact · upload)
-│   │   ├── globals.css              # Theme tokens + cinematic effects
+│   │   ├── globals.css              # Brand tokens (public) + admin theme
 │   │   ├── layout.tsx               # Root layout (fonts, metadata)
 │   │   ├── sitemap.ts
 │   │   ├── robots.ts
 │   │   └── not-found.tsx
 │   ├── components/
 │   │   ├── admin/                   # Admin-only components & forms
-│   │   ├── fx/                      # Neural network, grid backdrop, reveal, spotlight, typewriter
-│   │   ├── sections/                # Public site sections
-│   │   ├── site/                    # Public layout (nav, footer, MDX, JSON-LD)
+│   │   ├── brand/                   # Public-site components (nav, anatomy diagram, sections, form)
+│   │   ├── site/                    # MDX renderer, JSON-LD helpers
 │   │   └── ui/                      # shadcn primitives
 │   ├── lib/
 │   │   ├── supabase/                # Browser, server, middleware clients
@@ -240,22 +259,6 @@ sitemap / canonical links use it.
 For the contact form to send from a custom address, add and verify your
 domain at https://resend.com/domains. Then set
 `CONTACT_EMAIL_FROM="Your Name <hello@yourdomain.com>"`.
-
----
-
-## Customising the design
-
-All design tokens live in two places:
-
-- `src/app/globals.css` – CSS variables, glass / glow / grain utilities,
-  cinematic backgrounds, MDX prose tuning.
-- `tailwind.config.ts` – `ink-*` and `accent-*` colour scales, custom
-  keyframes, glow shadows, fonts.
-
-The hero's neural-network animation lives in
-`src/components/fx/neural-network.tsx` — tweak `density`, `linkDistance`,
-`maxNodes`, `speed` for different vibes. It honours
-`prefers-reduced-motion`.
 
 ---
 

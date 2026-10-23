@@ -1,53 +1,62 @@
 import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { Toaster } from "sonner";
 
 import "./globals.css";
 import { absoluteUrl } from "@/lib/utils";
+import { CHANNELS, PROFILE, STACK } from "@/content/profile";
 
-const SITE_NAME =
-  process.env.NEXT_PUBLIC_SITE_NAME ?? "MD. Faysal Islam Fahad";
-const FULL_TITLE = "MD. Faysal Islam Fahad — AI Engineer";
-const SITE_DESC =
-  "MD. Faysal Islam Fahad is an AI Engineer specializing in autonomous agents, RAG systems, and custom computer vision. Explore his projects, research, and blog.";
+const sans = Geist({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+const mono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
+const serif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-serif",
+  display: "swap",
+});
+
+const FULL_TITLE = `${PROFILE.name} — ${PROFILE.role}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(absoluteUrl()),
   title: {
     default: FULL_TITLE,
-    template: `%s | MD. Faysal Islam Fahad`,
+    template: `%s | ${PROFILE.name}`,
   },
-  description: SITE_DESC,
+  description: PROFILE.description,
   keywords: [
-    // ── Name variations (so people can find you) ──
-    "MD Faysal Islam Fahad",
+    // Name variations (so people can find you)
     "Faysal Islam Fahad",
+    "MD Faysal Islam Fahad",
     "Faysal Islam",
     "Faysal Fahad",
-    "MD Faysal",
-    "Faysal Islam Fahad portfolio",
-    "Faysal Islam Fahad AI",
-    "Faysal Islam Fahad deep learning",
-    // ── Technical keywords ──
-    "Deep Learning",
-    "AI Research",
-    "Computer Vision",
-    "Vision Transformers",
-    "Machine Learning",
-    "PyTorch",
-    "TensorFlow",
-    "Multimodal AI",
-    "Edge AI",
-    "Model Optimization",
-    "ONNX",
-    "AI Researcher Portfolio",
-    "Deep Learning Portfolio",
-    "AI Engineer",
-    "Neural Networks",
-    "Self-Supervised Learning",
+    // What clients search for
+    "full-stack AI engineer",
+    "freelance AI engineer",
+    "AI agent developer",
+    "LLM application developer",
+    "RAG developer",
+    "AI copilot development",
+    "LangChain developer",
+    "LangGraph developer",
+    "FastAPI developer",
+    "Next.js developer",
+    "AI MVP development",
+    "sales forecasting machine learning",
+    "AI engineer Bangladesh",
   ],
-  authors: [{ name: "MD. Faysal Islam Fahad", url: absoluteUrl() }],
-  creator: "MD. Faysal Islam Fahad",
-  publisher: "MD. Faysal Islam Fahad",
+  authors: [{ name: PROFILE.name, url: absoluteUrl() }],
+  creator: PROFILE.name,
+  publisher: PROFILE.name,
   category: "technology",
   alternates: {
     canonical: absoluteUrl(),
@@ -57,14 +66,14 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: absoluteUrl(),
     title: FULL_TITLE,
-    description: SITE_DESC,
-    siteName: SITE_NAME,
+    description: PROFILE.description,
+    siteName: PROFILE.name,
     // OG image is auto-discovered from opengraph-image.tsx
   },
   twitter: {
     card: "summary_large_image",
     title: FULL_TITLE,
-    description: SITE_DESC,
+    description: PROFILE.description,
     creator: "@faysal_islam_fd",
   },
   icons: {
@@ -81,15 +90,16 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  // Uncomment and add your Google Search Console verification code:
   verification: {
     google: "oUlOeEFQgnYmSyBB9rWk7QoW6q9GoWgO6fHtViItV2s",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#F4F1EA" },
+    { media: "(prefers-color-scheme: dark)", color: "#131210" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
@@ -102,29 +112,38 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "MD. Faysal Islam Fahad",
-    "alternateName": ["Faysal Islam", "Faysal Fahad", "MD Faysal", "Faysal Islam Fahad"],
-    "jobTitle": "AI Engineer",
-    "description": SITE_DESC,
-    "url": absoluteUrl(),
-    "sameAs": [
-      "https://github.com/faysal-islam-fd",
-      "https://linkedin.com/in/faysal-islam-fd",
-      "https://x.com/faysal_islam_fd"
+    "@id": `${absoluteUrl()}#person`,
+    name: PROFILE.name,
+    alternateName: [PROFILE.legalName, "Faysal Islam", "Faysal Fahad"],
+    jobTitle: PROFILE.role,
+    description: PROFILE.description,
+    url: absoluteUrl(),
+    email: `mailto:${PROFILE.email}`,
+    homeLocation: {
+      "@type": "Place",
+      name: PROFILE.location,
+    },
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "Bangladesh University of Business & Technology",
+    },
+    sameAs: CHANNELS.filter((c) => c.href.startsWith("http")).map(
+      (c) => c.href
+    ),
+    knowsAbout: [
+      "Large language model applications",
+      "AI agents",
+      "Retrieval-augmented generation",
+      ...STACK.flatMap((g) => g.items).slice(0, 14),
     ],
-    "knowsAbout": [
-      "Deep Learning",
-      "Computer Vision",
-      "Vision Transformers",
-      "Artificial Intelligence",
-      "Machine Learning",
-      "Multimodal AI",
-      "Edge AI"
-    ]
   };
 
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`dark ${sans.variable} ${mono.variable} ${serif.variable}`}
+      suppressHydrationWarning
+    >
       <body
         className="font-sans antialiased grain min-h-screen"
         suppressHydrationWarning
@@ -134,19 +153,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
-        <Toaster
-          position="bottom-right"
-          theme="dark"
-          richColors
-          toastOptions={{
-            classNames: {
-              toast:
-                "!bg-ink-900/95 ! !border !border-white/10 !text-zinc-100",
-              title: "!text-white",
-              description: "!text-zinc-300",
-            },
-          }}
-        />
+        <Toaster position="bottom-right" theme="system" richColors />
       </body>
     </html>
   );

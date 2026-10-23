@@ -30,7 +30,31 @@ export async function submitContactMessage(formData: FormData) {
       };
     }
 
-    const { name, email, subject, message } = parsed.data;
+    const { name, email } = parsed.data;
+
+    // Optional project details from the brief form. They are folded into
+    // the stored message so no schema change is needed.
+    const details = (
+      [
+        ["Company", "company"],
+        ["Service", "service"],
+        ["Budget", "budget"],
+        ["Timeline", "timeline"],
+      ] as const
+    )
+      .map(([label, key]) => {
+        const v = String(formData.get(key) ?? "").trim().slice(0, 120);
+        return v ? `${label}: ${v}` : null;
+      })
+      .filter(Boolean);
+
+    const service = String(formData.get("service") ?? "").trim().slice(0, 120);
+    const subject =
+      parsed.data.subject?.trim() ||
+      (service ? `${service} — inquiry from ${name}` : null);
+    const message = details.length
+      ? `${details.join("\n")}\n\n${parsed.data.message}`
+      : parsed.data.message;
 
     // Persist regardless of email config — service role bypasses RLS.
     const supabase = createServiceClient();

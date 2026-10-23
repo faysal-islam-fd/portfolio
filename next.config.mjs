@@ -25,6 +25,15 @@ const nextConfig = {
       bodySizeLimit: "10mb",
     },
   },
+  async redirects() {
+    // Old database-driven service pages → new service pages.
+    return [
+      { source: "/services/services-ai-agents", destination: "/services/ai-copilots-and-agents", permanent: true },
+      { source: "/services/services-rag-semantic-search", destination: "/services/document-ai-rag", permanent: true },
+      { source: "/services/services-custom-ml-tuning", destination: "/services/predictive-analytics", permanent: true },
+      { source: "/services/services-computer-vision", destination: "/services", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

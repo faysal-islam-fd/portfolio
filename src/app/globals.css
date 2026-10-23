@@ -11,9 +11,6 @@
 
 @layer base {
   :root {
-    --font-inter: "Inter";
-    --font-jetbrains: "JetBrains Mono";
-
     --background: 0 0% 2%;
     --foreground: 0 0% 96%;
 
@@ -286,4 +283,137 @@
 }
 .prose-research hr {
   @apply border-white/10 my-12;
+}
+
+/* =====================================================================
+   Public site — "engineering paper"
+   --------------------------------------------------------------------
+   Warm paper, ink type, one signal colour. Scoped to `.site` so the
+   admin panel keeps its own dark theme. Colours are RGB triplets so
+   Tailwind can apply alpha (see tailwind.config.ts).
+   ===================================================================== */
+
+:root {
+  --paper: 244 241 234;
+  --paper-2: 236 231 220;
+  --fg: 22 21 19;
+  --fg-2: 64 62 56;
+  --fg-3: 110 106 96;
+  --line: 214 207 192;
+  --signal: 196 62 26;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: 19 18 16;
+    --paper-2: 28 27 24;
+    --fg: 237 233 224;
+    --fg-2: 201 196 184;
+    --fg-3: 146 141 130;
+    --line: 52 50 45;
+    --signal: 240 106 66;
+  }
+}
+
+body:has(.site) {
+  background: rgb(var(--paper));
+  background-image: none;
+  color: rgb(var(--fg));
+}
+
+.site {
+  color-scheme: light;
+  color: rgb(var(--fg));
+  background: rgb(var(--paper));
+  font-feature-settings: "ss01" 1, "cv11" 1;
+}
+@media (prefers-color-scheme: dark) {
+  .site { color-scheme: dark; }
+}
+
+.site ::selection {
+  background-color: rgb(var(--signal) / 0.22);
+  color: rgb(var(--fg));
+}
+
+.site :focus-visible {
+  outline: 2px solid rgb(var(--signal));
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10;
+  }
+
+  /* Small mono label used for section numbers, metadata and captions */
+  .kicker {
+    @apply font-mono text-[11px] uppercase tracking-[0.14em] text-fg-3;
+  }
+
+  .display {
+    @apply font-serif font-normal text-fg;
+    letter-spacing: -0.015em;
+    line-height: 0.98;
+  }
+
+  .lede {
+    @apply text-lg sm:text-xl leading-relaxed text-fg-2;
+  }
+
+  .ulink {
+    @apply underline decoration-line decoration-1 underline-offset-[5px] transition-colors hover:decoration-signal hover:text-fg;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full text-[15px] font-medium transition-colors;
+  }
+  .btn-solid {
+    @apply bg-fg text-paper hover:bg-signal;
+  }
+  .btn-line {
+    @apply border border-fg/25 text-fg hover:border-fg;
+  }
+
+  .tag {
+    @apply inline-flex items-center rounded-full border border-line px-2.5 py-0.5 font-mono text-[11px] text-fg-2;
+  }
+
+  /* Long-form text (case studies, blog) */
+  .prose-paper {
+    @apply text-fg-2 text-[17px] leading-[1.75];
+  }
+  .prose-paper h1, .prose-paper h2, .prose-paper h3 {
+    @apply text-fg font-serif font-normal tracking-tight;
+  }
+  .prose-paper h1 { @apply mt-12 mb-4 text-4xl; }
+  .prose-paper h2 { @apply mt-12 mb-4 text-3xl; }
+  .prose-paper h3 { @apply mt-8 mb-3 text-2xl; }
+  .prose-paper p { @apply my-5; }
+  .prose-paper a { @apply text-fg underline decoration-signal/60 underline-offset-4 hover:decoration-signal; }
+  .prose-paper strong { @apply text-fg font-semibold; }
+  .prose-paper code { @apply font-mono text-[0.88em] px-1 py-0.5 rounded bg-paper-2 text-fg; }
+  .prose-paper pre { @apply font-mono text-sm rounded-lg border border-line bg-paper-2 p-4 overflow-x-auto my-6; }
+  .prose-paper pre code { @apply bg-transparent p-0; }
+  .prose-paper ul { @apply list-disc pl-6 my-5 space-y-2 marker:text-signal; }
+  .prose-paper ol { @apply list-decimal pl-6 my-5 space-y-2; }
+  .prose-paper blockquote { @apply border-l-2 border-signal pl-5 text-fg my-8 font-serif text-2xl leading-snug; }
+  .prose-paper img { @apply rounded-lg border border-line my-8; }
+  .prose-paper hr { @apply border-line my-12; }
+}
+
+/* Gentle entrance for above-the-fold content; skipped for reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .rise-1 { animation-delay: 0.06s; }
+  .rise-2 { animation-delay: 0.12s; }
+  .rise-3 { animation-delay: 0.18s; }
+  .rise-4 { animation-delay: 0.24s; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
 }
