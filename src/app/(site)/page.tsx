@@ -64,19 +64,19 @@ export default async function HomePage() {
 
           {about?.profile_image_url && (
             <figure className="rise rise-2 lg:col-span-4 lg:pt-2">
-              <div className="ticks mx-auto w-full max-w-[340px] p-3 lg:ml-auto">
-                <div className="relative aspect-[4/5] overflow-hidden border border-fg/30 bg-[#1d5a9a]">
+              <div className="ticks mx-auto w-full max-w-[280px] p-3 sm:max-w-[340px] lg:ml-auto">
+                <div className="relative aspect-[4/5] overflow-hidden border border-fg/30 bg-paper-2">
                   <Image
                     src={about.profile_image_url}
                     alt={`Portrait of ${PROFILE.name}`}
                     fill
                     priority
-                    className="object-cover object-top opacity-90 mix-blend-luminosity grayscale contrast-125"
+                    className="object-cover object-top"
                     sizes="(max-width:1024px) 340px, 340px"
                   />
                 </div>
               </div>
-              <figcaption className="mx-auto mt-2 flex max-w-[340px] justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-fg-3 lg:ml-auto">
+              <figcaption className="mx-auto mt-2 flex max-w-[280px] sm:max-w-[340px] justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-fg-3 lg:ml-auto">
                 <span>Fig. A — The engineer</span>
                 <span>{PROFILE.location}</span>
               </figcaption>
@@ -118,7 +118,7 @@ export default async function HomePage() {
               unchecked output, the missing fallback, the decision that should never
               have been left to a probability. I design those seams first.
             </p>
-            <AnatomyLegend className="mt-8" />
+            <AnatomyLegend className="mt-8 grid max-w-sm grid-cols-2" />
           </div>
           {queuestorm && (
             <div className="lg:col-span-7">

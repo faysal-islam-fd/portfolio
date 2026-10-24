@@ -101,8 +101,9 @@ export function ClosingCta({
             <Link href="/contact" className="btn btn-solid h-12 px-6">
               Start a project <span aria-hidden>→</span>
             </Link>
-            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-fg-3">
-              Free 30-min intro call · Replies within 24h
+            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-fg-3 md:text-right">
+              <span className="block">Free 30-min intro call</span>
+              <span className="block">Replies within 24h</span>
             </p>
           </div>
         </div>

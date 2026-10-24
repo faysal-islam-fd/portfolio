@@ -62,12 +62,12 @@ export default async function AboutPage() {
           <aside className="lg:col-span-4">
             {about?.profile_image_url && (
               <figure className="ticks w-full max-w-[380px] p-3">
-                <div className="relative aspect-[4/5] overflow-hidden border border-fg/30 bg-[#1d5a9a]">
+                <div className="relative aspect-[4/5] overflow-hidden border border-fg/30 bg-paper-2">
                   <Image
                     src={about.profile_image_url}
                     alt={`Portrait of ${PROFILE.name}`}
                     fill
-                    className="object-cover object-top opacity-90 mix-blend-luminosity grayscale contrast-125"
+                    className="object-cover object-top"
                     sizes="(max-width:1024px) 380px, 380px"
                     priority
                   />
@@ -214,7 +214,7 @@ function Section({ label, children }: { label: string; children: React.ReactNode
   return (
     <section className="border-t border-line">
       <div className="wrap grid grid-cols-1 gap-6 py-16 md:grid-cols-12">
-        <h2 className="kicker md:col-span-3 md:pt-1.5">{label}</h2>
+        <h2 className="side-label self-start md:col-span-3 md:pt-1.5">{label}</h2>
         <div className="md:col-span-9">{children}</div>
       </div>
     </section>

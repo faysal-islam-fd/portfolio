@@ -9,7 +9,7 @@ export function WorkList({ items }: { items: CaseStudy[] }) {
     <ol className="space-y-10">
       {items.map((c, i) => (
         <li key={c.slug}>
-          <article className="border border-fg/40 bg-paper/70">
+          <article className="border border-fg/40 bg-paper/70 transition-colors hover:border-fg/80">
             <header className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-fg/40 px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-fg-3 sm:px-7">
               <span className="text-signal">Sheet {String(i + 1).padStart(2, "0")}</span>
               <span className="text-fg">{c.name}</span>

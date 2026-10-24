@@ -354,6 +354,15 @@ body:has(.site) {
     @apply font-mono text-[11px] uppercase tracking-[0.16em] text-fg-3;
   }
 
+  /* Left-column row label on inner pages */
+  .side-label {
+    @apply flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.16em] text-fg;
+  }
+  .side-label::before {
+    content: "";
+    @apply h-2 w-2 shrink-0 bg-signal;
+  }
+
   .display {
     @apply font-cond font-semibold text-fg;
     letter-spacing: -0.01em;

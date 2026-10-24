@@ -165,7 +165,7 @@ export default async function ServicePage({
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <section className="grid grid-cols-1 gap-6 border-t border-line py-12 md:grid-cols-12">
-      <h2 className="kicker md:col-span-3 md:pt-1.5">{label}</h2>
+      <h2 className="side-label self-start md:col-span-3 md:pt-1.5">{label}</h2>
       <div className="md:col-span-9">{children}</div>
     </section>
   );

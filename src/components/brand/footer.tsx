@@ -26,7 +26,7 @@ export function BrandFooter() {
         <div className="grid grid-cols-1 gap-px border border-fg/50 bg-fg/50 md:grid-cols-12">
           <div className="bg-paper p-6 sm:p-8 md:col-span-6">
             <p className="kicker">Principle</p>
-            <p className="display mt-3 max-w-md text-4xl sm:text-5xl">
+            <p className="display mt-3 max-w-md text-4xl text-balance sm:text-5xl">
               {PROFILE.principle}
             </p>
           </div>
@@ -64,19 +64,15 @@ export function BrandFooter() {
           </div>
 
           {meta.map((m) => (
-            <div key={m.label} className="bg-paper px-6 py-4 sm:px-8 md:col-span-2">
+            <div key={m.label} className="bg-paper px-6 py-4 sm:px-8 md:col-span-3">
               <p className="kicker">{m.label}</p>
               <p className="mt-1 font-cond text-lg font-semibold uppercase tracking-wide text-fg">{m.value}</p>
             </div>
           ))}
-          <div className="flex flex-col justify-center bg-paper px-6 py-4 sm:px-8 md:col-span-4">
-            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-fg-3">
-              © {year} {PROFILE.name}
-            </p>
-            <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.12em] text-fg-3">
-              Built by hand · Next.js · Supabase
-            </p>
-          </div>
+        </div>
+        <div className="mt-4 flex flex-col gap-1 font-mono text-[11px] uppercase tracking-[0.12em] text-fg-3 sm:flex-row sm:justify-between">
+          <p>© {year} {PROFILE.name}</p>
+          <p>Built by hand · Next.js · Supabase</p>
         </div>
       </div>
     </footer>

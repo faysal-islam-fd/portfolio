@@ -140,7 +140,7 @@ function CaseStudyView({ cs }: { cs: CaseStudy }) {
       <section className="wrap py-16 sm:py-20">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
           <div className="md:col-span-3">
-            <p className="kicker">Anatomy</p>
+            <p className="side-label">Anatomy</p>
             <AnatomyLegend className="mt-4 flex-col !items-start" />
           </div>
           <div className="md:col-span-9">
@@ -169,7 +169,7 @@ function CaseStudyView({ cs }: { cs: CaseStudy }) {
           <ol className="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2">
             {cs.decisions.map((d) => (
               <li key={d.title} className="border-t border-fg pt-5">
-                <h3 className="text-lg font-medium text-fg">{d.title}</h3>
+                <h3 className="display text-[1.6rem]">{d.title}</h3>
                 <p className="mt-2 leading-relaxed text-fg-2">{d.body}</p>
               </li>
             ))}
@@ -234,7 +234,7 @@ function Fact({ label, value }: { label: string; value: string }) {
 function Block({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <section className="grid grid-cols-1 gap-6 border-t border-line py-12 md:grid-cols-12">
-      <h2 className="kicker md:col-span-3 md:pt-1.5">{label}</h2>
+      <h2 className="side-label self-start md:col-span-3 md:pt-1.5">{label}</h2>
       <div className="md:col-span-9">{children}</div>
     </section>
   );
