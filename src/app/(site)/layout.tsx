@@ -10,7 +10,7 @@ export default function SiteLayout({
     <div className="site relative min-h-screen">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-md focus:bg-fg focus:px-3 focus:py-1.5 focus:text-sm focus:text-paper"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-fg focus:px-3 focus:py-1.5 focus:text-sm focus:text-paper"
       >
         Skip to content
       </a>

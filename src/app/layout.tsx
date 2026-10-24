@@ -1,5 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import {
+  Barlow,
+  Barlow_Condensed,
+  Geist,
+  Geist_Mono,
+  IBM_Plex_Mono,
+} from "next/font/google";
 import { Toaster } from "sonner";
 
 import "./globals.css";
@@ -16,11 +22,24 @@ const mono = Geist_Mono({
   variable: "--font-mono",
   display: "swap",
 });
-const serif = Instrument_Serif({
+// Public-site typefaces. The admin panel keeps Geist; `.site` swaps the
+// --font-sans / --font-mono variables over to these (see globals.css).
+const body = Barlow({
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-serif",
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+  display: "swap",
+});
+const cond = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-cond",
+  display: "swap",
+});
+const plex = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plex",
   display: "swap",
 });
 
@@ -97,8 +116,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F4F1EA" },
-    { media: "(prefers-color-scheme: dark)", color: "#131210" },
+    { media: "(prefers-color-scheme: light)", color: "#0C2642" },
+    { media: "(prefers-color-scheme: dark)", color: "#0C2642" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -141,7 +160,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${sans.variable} ${mono.variable} ${serif.variable}`}
+      className={`dark ${sans.variable} ${mono.variable} ${body.variable} ${cond.variable} ${plex.variable}`}
       suppressHydrationWarning
     >
       <body

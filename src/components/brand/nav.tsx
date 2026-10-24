@@ -21,16 +21,26 @@ export function BrandNav() {
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line/70 bg-paper/90 backdrop-blur-sm supports-[backdrop-filter]:bg-paper/75">
+    <header className="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur-sm supports-[backdrop-filter]:bg-paper/80">
       <nav className="wrap flex h-16 items-center justify-between gap-6" aria-label="Main">
-        <Link href="/" className="group flex items-baseline gap-2.5" aria-label="Faysal Islam Fahad — home">
-          <span className="font-serif text-[22px] leading-none text-fg">Faysal Islam Fahad</span>
-          <span className="hidden sm:inline font-mono text-[11px] uppercase tracking-[0.14em] text-fg-3 group-hover:text-signal transition-colors">
-            AI engineer
+        <Link href="/" className="group flex items-center gap-3" aria-label="Faysal Islam Fahad — home">
+          <span
+            aria-hidden
+            className="grid h-9 w-9 place-items-center border border-fg font-cond text-[15px] font-bold tracking-wide text-fg transition-colors group-hover:border-signal group-hover:bg-signal group-hover:text-paper"
+          >
+            FIF
+          </span>
+          <span className="flex flex-col leading-none">
+            <span className="font-cond text-[19px] font-semibold uppercase tracking-[0.04em] text-fg">
+              Faysal Islam Fahad
+            </span>
+            <span className="mt-1 hidden font-mono text-[10px] uppercase tracking-[0.18em] text-fg-3 sm:block">
+              Full-stack AI engineer
+            </span>
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden items-center md:flex">
           {LINKS.map((l) => {
             const active = pathname.startsWith(l.href);
             return (
@@ -39,16 +49,17 @@ export function BrandNav() {
                 href={l.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "px-3 py-2 text-[15px] transition-colors",
-                  active ? "text-fg" : "text-fg-3 hover:text-fg"
+                  "px-3.5 py-2 font-mono text-[12px] uppercase tracking-[0.14em] transition-colors",
+                  active ? "text-signal" : "text-fg-2 hover:text-fg"
                 )}
               >
+                <span aria-hidden className={active ? "" : "opacity-0"}>[</span>
                 {l.label}
-                {active && <span aria-hidden className="ml-1 text-signal">•</span>}
+                <span aria-hidden className={active ? "" : "opacity-0"}>]</span>
               </Link>
             );
           })}
-          <Link href="/contact" className="btn btn-solid ml-3 h-10 px-4 text-sm">
+          <Link href="/contact" className="btn btn-solid ml-4 h-10 px-4">
             Start a project
           </Link>
         </div>
@@ -58,23 +69,23 @@ export function BrandNav() {
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
           aria-controls="mobile-menu"
-          className="md:hidden font-mono text-xs uppercase tracking-[0.14em] text-fg px-2 py-2"
+          className="border border-fg/40 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-fg md:hidden"
         >
           {open ? "Close" : "Menu"}
         </button>
       </nav>
 
       {open && (
-        <div id="mobile-menu" className="md:hidden border-t border-line bg-paper">
+        <div id="mobile-menu" className="border-t border-line bg-paper md:hidden">
           <ul className="wrap py-3">
-            {[...LINKS, { label: "Contact", href: "/contact" }].map((l) => (
+            {[...LINKS, { label: "Contact", href: "/contact" }].map((l, i) => (
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className="flex items-center justify-between border-b border-line/60 py-4 font-serif text-3xl text-fg"
+                  className="flex items-baseline gap-4 border-b border-line py-4 font-cond text-4xl font-semibold uppercase text-fg"
                 >
+                  <span className="font-mono text-xs text-signal">{String(i + 1).padStart(2, "0")}</span>
                   {l.label}
-                  <span aria-hidden className="text-fg-3 text-xl">→</span>
                 </Link>
               </li>
             ))}

@@ -10,7 +10,7 @@ const BUDGETS = ["Under $2k", "$2k – $5k", "$5k – $15k", "$15k+", "Not sure 
 const TIMELINES = ["ASAP", "Within a month", "1–3 months", "Just exploring"];
 
 const field =
-  "w-full rounded-md border border-line bg-paper px-3.5 py-3 text-[15px] text-fg placeholder:text-fg-3 transition-colors focus:border-fg focus:outline-none disabled:opacity-60";
+  "w-full border border-fg/30 bg-paper-2/60 px-3.5 py-3 text-[15px] text-fg placeholder:text-fg-3 transition-colors focus:border-signal focus:outline-none disabled:opacity-60";
 
 export function ProjectForm({
   services,
@@ -35,7 +35,7 @@ export function ProjectForm({
 
   if (submitted) {
     return (
-      <div className="rounded-md border border-line bg-paper-2/60 p-8 sm:p-10" role="status">
+      <div className="ticks ticks-signal bg-paper-2/60 p-8 sm:p-10" role="status">
         <p className="kicker text-signal">Received</p>
         <h3 className="display mt-3 text-4xl">Thanks — I&apos;ll be in touch.</h3>
         <p className="mt-4 max-w-md text-fg-2 leading-relaxed">
@@ -79,7 +79,7 @@ export function ProjectForm({
       </Field>
 
       <fieldset>
-        <legend className="mb-3 text-sm font-medium text-fg">What do you need?</legend>
+        <legend className="mb-3 font-mono text-[11px] uppercase tracking-[0.14em] text-fg">What do you need?</legend>
         <div className="flex flex-wrap gap-2">
           {[...services, { slug: "other", name: "Something else" }].map((s) => (
             <Choice
@@ -96,7 +96,7 @@ export function ProjectForm({
 
       <div className="grid grid-cols-1 gap-7 sm:grid-cols-2">
         <fieldset>
-          <legend className="mb-3 text-sm font-medium text-fg">
+          <legend className="mb-3 font-mono text-[11px] uppercase tracking-[0.14em] text-fg">
             Budget <span className="font-normal text-fg-3">(optional)</span>
           </legend>
           <div className="flex flex-wrap gap-2">
@@ -106,7 +106,7 @@ export function ProjectForm({
           </div>
         </fieldset>
         <fieldset>
-          <legend className="mb-3 text-sm font-medium text-fg">
+          <legend className="mb-3 font-mono text-[11px] uppercase tracking-[0.14em] text-fg">
             Timeline <span className="font-normal text-fg-3">(optional)</span>
           </legend>
           <div className="flex flex-wrap gap-2">
@@ -154,7 +154,7 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={htmlFor} className="mb-2 block text-sm font-medium text-fg">
+      <label htmlFor={htmlFor} className="mb-2 block font-mono text-[11px] uppercase tracking-[0.14em] text-fg">
         {label} {optional && <span className="font-normal text-fg-3">(optional)</span>}
       </label>
       {children}
@@ -185,7 +185,7 @@ function Choice({
         disabled={disabled}
         className="peer sr-only"
       />
-      <span className="inline-flex rounded-full border border-line px-3.5 py-1.5 text-sm text-fg-2 transition-colors hover:border-fg/40 peer-checked:border-fg peer-checked:bg-fg peer-checked:text-paper peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-signal">
+      <span className="inline-flex border border-fg/30 px-3 py-1.5 text-sm text-fg-2 transition-colors hover:border-fg peer-checked:border-signal peer-checked:bg-signal peer-checked:text-paper peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-signal">
         {label}
       </span>
     </label>

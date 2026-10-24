@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { getAbout } from "@/lib/queries";
 import { Anatomy, AnatomyLegend } from "@/components/brand/anatomy";
+import { Callout, Dim } from "@/components/brand/blueprint";
 import { ClosingCta, SectionHead } from "@/components/brand/section";
 import { WorkList } from "@/components/brand/work-list";
 import { PRINCIPLES, PROCESS, PROFILE } from "@/content/profile";
@@ -25,18 +26,25 @@ export default async function HomePage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="wrap pt-14 pb-16 sm:pt-20 lg:pt-24">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10">
+      <section className="wrap pt-8 pb-16 sm:pt-10">
+        <div className="rise flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-b border-fg/25 pb-3 font-mono text-[11px] uppercase tracking-[0.16em] text-fg-3">
+          <span>Dwg. FIF-001 · {PROFILE.role}</span>
+          <span>23.81° N 90.41° E · {PROFILE.timezone}</span>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 gap-12 sm:mt-16 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-8">
-            <p className="kicker rise">
-              {PROFILE.role} — LLMs · agents · RAG · applied ML
-            </p>
-            <h1 className="display rise rise-1 mt-6 text-[clamp(3.25rem,9vw,8.25rem)]">
+            <h1 className="display rise rise-1 text-[clamp(3.6rem,10.5vw,9.5rem)] font-bold uppercase !leading-[0.86] tracking-[-0.02em]">
               AI products,
               <br />
-              engineered <em className="text-signal">end&nbsp;to&nbsp;end.</em>
+              engineered
+              <br />
+              <span className="inline-block">
+                <em className="text-signal">end&nbsp;to&nbsp;end.</em>
+                <Dim label="Full stack" className="mt-3" />
+              </span>
             </h1>
-            <p className="lede rise rise-2 mt-8 max-w-2xl">{PROFILE.intro}</p>
+            <p className="lede rise rise-2 mt-10 max-w-2xl">{PROFILE.intro}</p>
             <div className="rise rise-3 mt-9 flex flex-wrap items-center gap-3">
               <Link href="/contact" className="btn btn-solid h-12 px-6">
                 Start a project <span aria-hidden>→</span>
@@ -45,62 +53,65 @@ export default async function HomePage() {
                 See the work
               </Link>
             </div>
-            <p className="rise rise-4 mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-fg-3">
-              <span className="inline-flex items-center gap-2 text-fg-2">
-                <span aria-hidden className="relative inline-flex h-2 w-2">
-                  <span className="absolute inset-0 rounded-full bg-emerald-600/70 motion-safe:animate-ping" />
-                  <span className="relative h-2 w-2 rounded-full bg-emerald-600" />
-                </span>
-                {PROFILE.availability}
+            <p className="rise rise-4 mt-8 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[11px] uppercase tracking-[0.14em] text-fg-3">
+              <span className="inline-flex items-center gap-2 text-fg">
+                <span aria-hidden className="h-2 w-2 bg-signal" />
+                Status: {PROFILE.availability}
               </span>
-              <span aria-hidden>·</span>
-              <span>{PROFILE.location} ({PROFILE.timezone})</span>
-              <span aria-hidden>·</span>
               <span>{PROFILE.responseTime}</span>
             </p>
           </div>
 
           {about?.profile_image_url && (
-            <figure className="rise rise-2 lg:col-span-4 lg:pt-4">
-              <div className="relative mx-auto aspect-[4/5] w-full max-w-[340px] overflow-hidden rounded-md border border-line bg-paper-2 lg:ml-auto">
-                <Image
-                  src={about.profile_image_url}
-                  alt={`Portrait of ${PROFILE.name}`}
-                  fill
-                  priority
-                  className="object-cover object-top"
-                  sizes="(max-width:1024px) 340px, 340px"
-                />
+            <figure className="rise rise-2 lg:col-span-4 lg:pt-2">
+              <div className="ticks mx-auto w-full max-w-[340px] p-3 lg:ml-auto">
+                <div className="relative aspect-[4/5] overflow-hidden border border-fg/30 bg-[#1d5a9a]">
+                  <Image
+                    src={about.profile_image_url}
+                    alt={`Portrait of ${PROFILE.name}`}
+                    fill
+                    priority
+                    className="object-cover object-top opacity-90 mix-blend-luminosity grayscale contrast-125"
+                    sizes="(max-width:1024px) 340px, 340px"
+                  />
+                </div>
               </div>
-              <figcaption className="kicker mx-auto mt-3 max-w-[340px] lg:ml-auto">
-                Faysal — Dhaka, working worldwide
+              <figcaption className="mx-auto mt-2 flex max-w-[340px] justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-fg-3 lg:ml-auto">
+                <span>Fig. A — The engineer</span>
+                <span>{PROFILE.location}</span>
               </figcaption>
             </figure>
           )}
         </div>
 
-        <div className="mt-16 border-t border-line pt-5">
-          <ul className="flex flex-wrap items-baseline gap-x-8 gap-y-3">
-            <li className="kicker">Shipped &amp; public</li>
-            {SHIPPED.map((s) => (
-              <li key={s.label}>
-                <a href={s.href} target="_blank" rel="noopener noreferrer" className="group text-[15px] text-fg">
-                  <span className="font-medium group-hover:text-signal transition-colors">{s.label}</span>
-                  <span className="text-fg-3"> — {s.note} ↗</span>
-                </a>
-              </li>
-            ))}
-          </ul>
+        <div className="mt-16 grid grid-cols-2 gap-px border border-fg/40 bg-fg/40 md:grid-cols-5">
+          <p className="kicker col-span-2 flex items-center bg-paper px-4 py-4 text-fg md:col-span-1">
+            Shipped &amp; public
+          </p>
+          {SHIPPED.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group bg-paper px-4 py-3.5 transition-colors hover:bg-paper-2"
+            >
+              <span className="block font-cond text-xl font-semibold uppercase tracking-wide text-fg transition-colors group-hover:text-signal">
+                {s.label} <span aria-hidden className="text-fg-3">↗</span>
+              </span>
+              <span className="font-mono text-[11px] text-fg-3">{s.note}</span>
+            </a>
+          ))}
         </div>
       </section>
 
       {/* ── Principle ────────────────────────────────────── */}
-      <section className="border-y border-line bg-paper-2/60">
+      <section className="border-y border-line bg-paper-2/70">
         <div className="wrap grid grid-cols-1 gap-12 py-20 sm:py-28 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <p className="kicker">How I think about AI systems</p>
-            <blockquote className="display mt-6 text-[clamp(2.4rem,5vw,4.25rem)] text-balance">
-              Models where they help. <span className="italic text-signal">Code where it has to be right.</span>
+            <p className="kicker text-signal">How I think about AI systems</p>
+            <blockquote className="display mt-6 text-[clamp(2.6rem,5vw,4.5rem)] text-balance">
+              Models where they help. <span className="text-signal">Code where it has to be right.</span>
             </blockquote>
             <p className="lede mt-7 max-w-md">
               Most AI features don&apos;t fail at the model. They fail at the seams — the
@@ -111,11 +122,14 @@ export default async function HomePage() {
           </div>
           {queuestorm && (
             <div className="lg:col-span-7">
-              <p className="kicker mb-4">
-                Example — {queuestorm.name}, a finance support copilot
-              </p>
-              <Anatomy stages={queuestorm.anatomy} className="lg:grid-cols-2" />
-              <Link href={`/projects/${queuestorm.slug}`} className="mt-6 inline-flex items-center gap-2 text-[15px] font-medium ulink">
+              <div className="flex items-center gap-3">
+                <Callout tone="signal">A</Callout>
+                <p className="kicker">
+                  Detail — {queuestorm.name}, a finance support copilot
+                </p>
+              </div>
+              <Anatomy stages={queuestorm.anatomy} className="mt-6" />
+              <Link href={`/projects/${queuestorm.slug}`} className="mt-7 inline-flex items-center gap-2 text-[15px] font-medium ulink">
                 Why the model never makes the decision <span aria-hidden>→</span>
               </Link>
             </div>
@@ -154,8 +168,8 @@ export default async function HomePage() {
                   key={s.slug}
                   className="flex flex-col border-b border-line py-10 md:px-8 md:odd:border-r md:odd:pl-0 md:even:pr-0"
                 >
-                  <span className="kicker text-signal">{String.fromCharCode(65 + i)}</span>
-                  <h3 className="display mt-3 text-3xl sm:text-[2.1rem]">
+                  <Callout tone="signal" className="h-9 w-9">{String.fromCharCode(65 + i)}</Callout>
+                  <h3 className="display mt-5 text-3xl sm:text-[2.3rem]">
                     <Link href={`/services/${s.slug}`} className="hover:text-signal transition-colors">
                       {s.name}
                     </Link>
@@ -188,8 +202,8 @@ export default async function HomePage() {
           <ol className="mt-14 grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-2">
             {PRINCIPLES.map((p, i) => (
               <li key={p.title} className="border-t border-fg pt-6">
-                <span className="kicker">Principle {i + 1}</span>
-                <h3 className="mt-3 text-xl font-medium text-fg">{p.title}</h3>
+                <span className="kicker text-signal">Rule {String(i + 1).padStart(2, "0")}</span>
+                <h3 className="display mt-3 text-[1.7rem]">{p.title}</h3>
                 <p className="mt-3 text-fg-2 leading-relaxed">{p.body}</p>
               </li>
             ))}
@@ -197,11 +211,11 @@ export default async function HomePage() {
 
           <div className="mt-24 grid grid-cols-1 gap-6 md:grid-cols-12">
             <p className="kicker md:col-span-3 md:pt-1">Working together</p>
-            <ol className="grid grid-cols-1 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-2 lg:grid-cols-4 md:col-span-9">
+            <ol className="grid grid-cols-1 gap-px overflow-hidden border border-fg/40 bg-fg/40 sm:grid-cols-2 lg:grid-cols-4 md:col-span-9">
               {PROCESS.map((p) => (
                 <li key={p.step} className="bg-paper p-6">
-                  <span className="font-mono text-xs text-signal">{p.step}</span>
-                  <h3 className="mt-3 font-medium text-fg">{p.title}</h3>
+                  <span className="font-mono text-xs text-signal">Step {p.step}</span>
+                  <h3 className="mt-3 font-cond text-xl font-semibold uppercase tracking-wide text-fg">{p.title}</h3>
                   <p className="mt-2 text-sm text-fg-2 leading-relaxed">{p.body}</p>
                 </li>
               ))}
@@ -213,9 +227,10 @@ export default async function HomePage() {
       {/* ── About (short) ────────────────────────────────── */}
       <section className="border-t border-line">
         <div className="wrap grid grid-cols-1 gap-6 py-24 sm:py-32 md:grid-cols-12">
-          <p className="kicker md:col-span-3 md:pt-3">
-            <span className="text-signal">04</span> — About
-          </p>
+          <div className="flex items-center gap-4 md:col-span-3 md:items-start">
+            <Callout>04</Callout>
+            <p className="kicker text-fg md:pt-3.5">About</p>
+          </div>
           <div className="md:col-span-9">
             <p className="display text-[clamp(1.9rem,3.6vw,3rem)] text-balance">
               I&apos;m Faysal, a full-stack AI engineer in Dhaka. I write the retrieval

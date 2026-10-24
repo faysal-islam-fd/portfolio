@@ -1,8 +1,12 @@
 import Link from "next/link";
 
+import { Callout } from "@/components/brand/blueprint";
 import { cn } from "@/lib/utils";
 
-/** Numbered section header: "02 — Selected work" + serif title. */
+/**
+ * Section header styled as a drawing callout: numbered bubble, label and a
+ * rule running to the edge, then the condensed title underneath.
+ */
 export function SectionHead({
   index,
   label,
@@ -19,18 +23,29 @@ export function SectionHead({
   className?: string;
 }) {
   return (
-    <div className={cn("grid grid-cols-1 gap-6 md:grid-cols-12", className)}>
-      <p className="kicker md:col-span-3 md:pt-3">
-        {index && <span className="text-signal">{index}</span>}
-        {index && " — "}
-        {label}
-      </p>
-      <div className="md:col-span-9">
-        <h2 className="display text-[clamp(2.25rem,5vw,4rem)] text-balance">{title}</h2>
-        {intro && <div className="lede mt-5 max-w-2xl">{intro}</div>}
+    <div className={className}>
+      <div className="flex items-center gap-4">
+        {index && <Callout>{index}</Callout>}
+        <p className="kicker shrink-0 text-fg">{label}</p>
+        <span aria-hidden className="h-px flex-1 bg-fg/25" />
         {action && (
-          <Link href={action.href} className="mt-6 inline-flex items-center gap-2 text-[15px] font-medium text-fg ulink">
-            {action.label} <span aria-hidden>→</span>
+          <Link
+            href={action.href}
+            className="hidden shrink-0 font-mono text-[11px] uppercase tracking-[0.16em] text-fg-2 transition-colors hover:text-signal sm:inline"
+          >
+            {action.label} →
+          </Link>
+        )}
+      </div>
+      <div className={cn("mt-8 grid grid-cols-1 gap-6 md:grid-cols-12", index && "md:pl-[3.75rem]")}>
+        <h2 className="display text-[clamp(2.5rem,5.5vw,4.5rem)] text-balance md:col-span-8">{title}</h2>
+        {intro && <div className="text-fg-2 leading-relaxed md:col-span-4 md:self-end">{intro}</div>}
+        {action && (
+          <Link
+            href={action.href}
+            className="font-mono text-[11px] uppercase tracking-[0.16em] text-fg-2 transition-colors hover:text-signal sm:hidden"
+          >
+            {action.label} →
           </Link>
         )}
       </div>
@@ -38,7 +53,7 @@ export function SectionHead({
   );
 }
 
-/** Simple page header for inner pages. */
+/** Page header for inner pages. */
 export function PageIntro({
   label,
   title,
@@ -51,9 +66,12 @@ export function PageIntro({
   children?: React.ReactNode;
 }) {
   return (
-    <header className="wrap pt-16 pb-14 sm:pt-24 sm:pb-20">
-      <p className="kicker rise">{label}</p>
-      <h1 className="display rise rise-1 mt-5 max-w-5xl text-[clamp(2.75rem,7vw,6rem)] text-balance">
+    <header className="wrap pt-14 pb-14 sm:pt-20 sm:pb-20">
+      <div className="rise flex items-center gap-4">
+        <p className="kicker shrink-0 text-signal">{label}</p>
+        <span aria-hidden className="h-px flex-1 bg-fg/25" />
+      </div>
+      <h1 className="display rise rise-1 mt-8 max-w-5xl text-[clamp(3rem,8vw,6.75rem)] text-balance [&_em]:text-signal">
         {title}
       </h1>
       {intro && <div className="lede rise rise-2 mt-7 max-w-2xl">{intro}</div>}
@@ -71,17 +89,22 @@ export function ClosingCta({
   body?: string;
 }) {
   return (
-    <section className="border-t border-line bg-paper-2/60">
-      <div className="wrap grid grid-cols-1 gap-10 py-20 sm:py-28 md:grid-cols-12">
-        <div className="md:col-span-8">
-          <h2 className="display text-[clamp(2.5rem,6vw,5rem)] text-balance">{title}</h2>
-          <p className="lede mt-6 max-w-xl">{body}</p>
-        </div>
-        <div className="flex flex-col items-start justify-end gap-3 md:col-span-4 md:items-end">
-          <Link href="/contact" className="btn btn-solid h-12 px-6">
-            Start a project <span aria-hidden>→</span>
-          </Link>
-          <p className="text-sm text-fg-3">Free 30-minute intro call. Replies within 24h.</p>
+    <section className="border-t border-line">
+      <div className="wrap py-20 sm:py-28">
+        <div className="ticks ticks-signal grid grid-cols-1 gap-10 p-8 sm:p-12 md:grid-cols-12">
+          <div className="md:col-span-8">
+            <p className="kicker text-signal">Next step</p>
+            <h2 className="display mt-4 text-[clamp(2.5rem,6vw,5rem)] text-balance">{title}</h2>
+            <p className="lede mt-6 max-w-xl">{body}</p>
+          </div>
+          <div className="flex flex-col items-start justify-end gap-3 md:col-span-4 md:items-end">
+            <Link href="/contact" className="btn btn-solid h-12 px-6">
+              Start a project <span aria-hidden>→</span>
+            </Link>
+            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-fg-3">
+              Free 30-min intro call · Replies within 24h
+            </p>
+          </div>
         </div>
       </div>
     </section>

@@ -19,7 +19,7 @@ const config: Config = {
     },
     extend: {
       colors: {
-        // Public-site brand palette — "engineering paper". Values live in
+        // Public-site brand palette — "blueprint". Values live in
         // globals.css so light/dark can swap them.
         paper: {
           DEFAULT: "rgb(var(--paper) / <alpha-value>)",
@@ -90,7 +90,7 @@ const config: Config = {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
         display: ["var(--font-sans)", "system-ui", "sans-serif"],
-        serif: ["var(--font-serif)", "Georgia", "serif"],
+        cond: ["var(--font-cond)", "Arial Narrow", "sans-serif"],
       },
       backgroundImage: {
         "grid-pattern":

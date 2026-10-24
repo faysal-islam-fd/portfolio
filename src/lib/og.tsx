@@ -4,11 +4,11 @@ import { PROFILE } from "@/content/profile";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 
-const PAPER = "#F4F1EA";
-const INK = "#161513";
-const MUTED = "#6E6A60";
-const LINE = "#D6CFC0";
-const SIGNAL = "#C43E1A";
+const PAPER = "#0C2642";
+const INK = "#EAF2FA";
+const MUTED = "#809DBE";
+const LINE = "#4A7099";
+const SIGNAL = "#FFD23F";
 
 /** Fetches a Google font as TTF so Satori can render it. */
 async function loadGoogleFont(family: string, text: string) {
@@ -20,7 +20,7 @@ async function loadGoogleFont(family: string, text: string) {
 }
 
 /**
- * Brand OG card: paper background, serif title, mono metadata.
+ * Brand OG card: blueprint ground, condensed title, mono metadata.
  * Falls back to the default font if Google Fonts can't be reached.
  */
 export async function renderOg({
@@ -37,13 +37,13 @@ export async function renderOg({
   try {
     fonts.push({
       name: "Serif",
-      data: await loadGoogleFont("Instrument+Serif", title + footer),
+      data: await loadGoogleFont("Barlow+Condensed:wght@600", title + footer),
       style: "normal",
       weight: 400,
     });
     fonts.push({
       name: "Mono",
-      data: await loadGoogleFont("Geist+Mono", header + "faysalislamfahad.dev"),
+      data: await loadGoogleFont("IBM+Plex+Mono", header + "faysalislamfahad.dev"),
       style: "normal",
       weight: 400,
     });
@@ -65,6 +65,8 @@ export async function renderOg({
           justifyContent: "space-between",
           padding: "64px 72px",
           background: PAPER,
+          backgroundImage: `linear-gradient(${LINE}33 1px, transparent 1px), linear-gradient(90deg, ${LINE}33 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
           color: INK,
         }}
       >
@@ -73,7 +75,7 @@ export async function renderOg({
           {header}
         </div>
 
-        <div style={{ display: "flex", fontFamily: serif, fontSize: titleSize, lineHeight: 1.02, letterSpacing: -1, maxWidth: 1040 }}>
+        <div style={{ display: "flex", fontFamily: serif, fontSize: titleSize, lineHeight: 0.98, letterSpacing: -0.5, maxWidth: 1040 }}>
           {title}
         </div>
 

@@ -26,7 +26,7 @@ const components = {
         alt={props.alt ?? ""}
         width={1200}
         height={675}
-        className="rounded-lg border border-line w-full h-auto"
+        className="border border-line w-full h-auto"
       />
     </span>
   ),

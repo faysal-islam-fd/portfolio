@@ -61,15 +61,17 @@ export default async function AboutPage() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           <aside className="lg:col-span-4">
             {about?.profile_image_url && (
-              <figure className="relative aspect-[4/5] w-full max-w-[380px] overflow-hidden rounded-md border border-line bg-paper-2">
-                <Image
-                  src={about.profile_image_url}
-                  alt={`Portrait of ${PROFILE.name}`}
-                  fill
-                  className="object-cover object-top"
-                  sizes="(max-width:1024px) 380px, 380px"
-                  priority
-                />
+              <figure className="ticks w-full max-w-[380px] p-3">
+                <div className="relative aspect-[4/5] overflow-hidden border border-fg/30 bg-[#1d5a9a]">
+                  <Image
+                    src={about.profile_image_url}
+                    alt={`Portrait of ${PROFILE.name}`}
+                    fill
+                    className="object-cover object-top opacity-90 mix-blend-luminosity grayscale contrast-125"
+                    sizes="(max-width:1024px) 380px, 380px"
+                    priority
+                  />
+                </div>
               </figure>
             )}
             <dl className="mt-8 max-w-[380px] border-t border-line">

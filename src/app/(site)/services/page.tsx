@@ -112,7 +112,7 @@ export default function ServicesIndex() {
             <h2 className="display text-[clamp(2rem,4vw,3.25rem)] text-balance">
               Small scope, weekly demos, no surprises.
             </h2>
-            <ol className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-2">
+            <ol className="mt-10 grid grid-cols-1 gap-px overflow-hidden border border-line bg-line sm:grid-cols-2">
               {PROCESS.map((p) => (
                 <li key={p.step} className="bg-paper p-6">
                   <span className="font-mono text-xs text-signal">{p.step}</span>

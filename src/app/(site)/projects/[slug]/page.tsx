@@ -104,7 +104,7 @@ function CaseStudyView({ cs }: { cs: CaseStudy }) {
         </h1>
         <p className="lede rise rise-2 mt-7 max-w-3xl">{cs.summary}</p>
 
-        <dl className="rise rise-3 mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-line bg-line text-sm md:grid-cols-4">
+        <dl className="rise rise-3 mt-12 grid grid-cols-2 gap-px overflow-hidden border border-line bg-line text-sm md:grid-cols-4">
           <Fact label="Status" value={cs.status} />
           <Fact label="Year" value={cs.year} />
           <Fact label="Context" value={cs.context ?? "Independent product"} />
@@ -123,7 +123,7 @@ function CaseStudyView({ cs }: { cs: CaseStudy }) {
 
       {cs.image && (
         <div className="wrap">
-          <figure className="overflow-hidden rounded-md border border-line bg-paper-2">
+          <figure className="overflow-hidden border border-line bg-paper-2">
             <Image
               src={cs.image.src}
               alt={cs.image.alt}
@@ -283,7 +283,7 @@ function DbProjectView({ p }: { p: Project }) {
 
       {p.cover_image_url && (
         <div className="wrap">
-          <div className="relative aspect-[16/9] overflow-hidden rounded-md border border-line bg-paper-2">
+          <div className="relative aspect-[16/9] overflow-hidden border border-line bg-paper-2">
             <Image src={p.cover_image_url} alt={p.title} fill priority className="object-cover" sizes="(max-width:1240px) 100vw, 1240px" />
           </div>
         </div>
@@ -291,7 +291,7 @@ function DbProjectView({ p }: { p: Project }) {
 
       <div className="wrap py-16">
         {metrics.length > 0 && (
-          <dl className="mb-6 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-4">
+          <dl className="mb-6 grid grid-cols-2 gap-px overflow-hidden border border-line bg-line sm:grid-cols-4">
             {metrics.map((m, i) => (
               <div key={i} className="bg-paper p-5">
                 <dt className="kicker">{m.label}</dt>

@@ -121,7 +121,7 @@ export default async function ServicePage({
           </Row>
         )}
         <Row label="How we'd work">
-          <ol className="grid grid-cols-1 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-2">
+          <ol className="grid grid-cols-1 gap-px overflow-hidden border border-line bg-line sm:grid-cols-2">
             {PROCESS.map((p) => (
               <li key={p.step} className="bg-paper p-5">
                 <span className="font-mono text-xs text-signal">{p.step}</span>

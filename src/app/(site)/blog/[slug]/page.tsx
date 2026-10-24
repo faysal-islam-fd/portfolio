@@ -92,7 +92,7 @@ export default async function PostPage({
 
       {p.cover_image_url && (
         <div className="wrap">
-          <div className="relative aspect-[16/8] overflow-hidden rounded-md border border-line bg-paper-2">
+          <div className="relative aspect-[16/8] overflow-hidden border border-line bg-paper-2">
             <Image
               src={p.cover_image_url}
               alt={p.title}
